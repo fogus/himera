@@ -1,6 +1,6 @@
-(ns himera.app
+(ns himera.server.app
   (:use ring.adapter.jetty)
-  (:require [himera.service :as himera]))
+  (:require [himera.server.service :as himera]))
 
 (defn -main
   [& args]

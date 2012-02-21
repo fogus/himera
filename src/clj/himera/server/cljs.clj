@@ -1,4 +1,4 @@
-(ns himera.cljs
+(ns himera.server.cljs
   (:refer-clojure :exclude (format compile))
   (:require [cljs.compiler :as comp]
             [cljs.closure :as cljsc])

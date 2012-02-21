@@ -1,7 +1,7 @@
-(ns himera.service
+(ns himera.server.service
   (:use compojure.core)
   (:use ring.middleware.clj-params)
-  (:require [himera.cljs :as cljs]))
+  (:require [himera.server.cljs :as cljs]))
 
 (defn generate-response [data & [status]]
   {:status (or status 200)
