@@ -11,5 +11,6 @@
   :dev-dependencies [[jline "0.9.94"]
                      [lein-marginalia "0.7.0-SNAPSHOT"]]
   :source-path "src/clj"
-  :main himera.server.app)
+  :main himera.server.app
+  :hooks [leiningen.js])
 
