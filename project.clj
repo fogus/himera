@@ -1,4 +1,4 @@
-(defproject himera "0.0.2-SNAPSHOT"
+(defproject himera "0.0.1-SNAPSHOT"
   :description "ClojureScript compiler service."
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [ring "1.0.2"]
@@ -9,7 +9,15 @@
                  [org.clojure/google-closure-library "0.0-790"]
                  [org.mozilla/rhino "1.7R3"]]
   :dev-dependencies [[jline "0.9.94"]
-                     [lein-marginalia "0.7.0-SNAPSHOT"]]
+                     [lein-marginalia "0.7.0-SNAPSHOT"]
+                     [lein-cljsbuild "0.0.13"]]
+  :cljsbuild {:source-path "src/cljs"
+              :jar true
+              :compiler
+              {:output-dir "resources/public/"
+               :output-to "resources/public/repl.js"
+               :optimizations :simple
+               :pretty-print true}}
   :source-path "src/clj"
   :main himera.server.app
   :hooks [leiningen.js])

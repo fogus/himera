@@ -1,3 +1,5 @@
+resources/public/cljs
+resources/public/himera
 /pom.xml
 *jar
 /lib
