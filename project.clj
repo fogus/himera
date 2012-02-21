@@ -1,4 +1,4 @@
-(defproject himera "0.0.1-SNAPSHOT"
+(defproject himera "0.0.2-SNAPSHOT"
   :description "ClojureScript compiler service."
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [ring "1.0.2"]
@@ -11,5 +11,5 @@
   :dev-dependencies [[jline "0.9.94"]
                      [lein-marginalia "0.7.0-SNAPSHOT"]]
   :source-path "src/clj"
-  :main himera.app)
+  :main himera.server.app)
 
