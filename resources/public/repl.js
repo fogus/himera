@@ -7410,7 +7410,7 @@ himera.client.repl.on_handle = function(a) {
     return himera.client.repl.build_msg.call(null, "Compilation error: ", b, "jquery-console-message-error")
   }
   try {
-    return himera.client.repl.build_msg.call(null, "", eval.call(null, a.js), "jquery-console-message-value")
+    return himera.client.repl.build_msg.call(null, "", cljs.core.pr_str.call(null, eval.call(null, a.js)), "jquery-console-message-value")
   }catch(c) {
     if(cljs.core.truth_(cljs.core.instance_QMARK_.call(null, Error, c))) {
       return himera.client.repl.build_msg.call(null, "Compilation error: ", c, "jquery-console-message-error")

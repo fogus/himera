@@ -33,7 +33,7 @@
     (if-let [err (and compiled (.-error compiled))]
       (build-msg "Compilation error: " err "jquery-console-message-error")
       (try
-        (build-msg "" (js/eval (.-js compiled)) "jquery-console-message-value")
+        (build-msg "" (pr-str (js/eval (.-js compiled))) "jquery-console-message-value")
         (catch js/Error e
           (build-msg "Compilation error: " e "jquery-console-message-error"))))))
 
