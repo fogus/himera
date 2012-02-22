@@ -7,7 +7,7 @@
             [ring.util.response :as resp]))
 
 (defn generate-response [data & [status]]
-  (let [ret-val (str "{\"js\" : \"" (string/trim-newline (if-let [d (:js data)] d "null")) "\"}")]
+  (let [ret-val (str "{\"js\" : " (string/trim-newline (if-let [d (:js data)] (pr-str d) "null")) "}")]
     (println ret-val)
     {:status (or status 200)
      :headers {"Content-Type" "application/clojure"}
