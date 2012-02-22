@@ -10,7 +10,8 @@
                  [org.mozilla/rhino "1.7R3"]
                  [lein-cljsbuild "0.0.13"]]
   :dev-dependencies [[jline "0.9.94"]
-                     [lein-marginalia "0.7.0-SNAPSHOT"]]
+                     [lein-marginalia "0.7.0-SNAPSHOT"]
+                     [lein-cljsbuild "0.0.13"]]
   :cljsbuild {:source-path "src/cljs"
               :jar true
               :compiler
