@@ -21,14 +21,6 @@
 
 ;; (binding [comp/namespaces (atom @comp/namespaces) cljsc/compiled-cljs (atom {})])
 
-#_(defn build
-  [expr opt pp]
-  (println (str "===> " [expr (class expr)]))
-  {:js (cljsc/build expr
-                    {:optimizations opt,
-                     :pretty-print  pp})
-   :status 200})
-
 (defn build [expr opt pp]
   (println (str "===> " [expr (class expr)]))
   {:js
