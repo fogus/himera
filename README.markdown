@@ -4,7 +4,7 @@ FIXME: write description
 
 ## Usage
 
-FIXME: write
+    lein run 8080
 
 ## License
 
