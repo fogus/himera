@@ -4,5 +4,4 @@
 
 (defn -main
   [& args]
-  (run-jetty #'himera/app {:port 8080}))
-
+  (run-jetty #'himera/app {:port (or (System/getenv "PORT") 8080)}))
