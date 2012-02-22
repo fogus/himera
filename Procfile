@@ -1,1 +1,1 @@
-web: lein run
+web: lein run $PORT
