@@ -34,7 +34,7 @@
   {:js
    (binding [comp/*cljs-ns* 'cljs.user]
      (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
-                :context :statement
+                :context :expr
                 :locals {}}]
        (comp/emits (comp/analyze env expr))))
    :status 200})
