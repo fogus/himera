@@ -6,8 +6,10 @@
             [compojure.route :as route]
             [ring.util.response :as resp]))
 
+;; (str "{\"js\" : " (string/trim-newline (if-let [d (:js data)] (pr-str d) "null")) "}")
+
 (defn generate-response [data & [status]]
-  (let [ret-val (str "{\"js\" : " (string/trim-newline (if-let [d (:js data)] (pr-str d) "null")) "}")]
+  (let [ret-val (pr-str {:js (string/trim-newline (:js data))})]
     (println ret-val)
     {:status (or status 200)
      :headers {"Content-Type" "application/clojure"}
@@ -20,7 +22,7 @@
        (generate-response {:hello name}))
 
   (POST "/compile" [expr]
-        (generate-response (cljs/compile expr :simple true)))
+        (generate-response (cljs/compile expr :simple false)))
 
   (route/resources "/"))
 

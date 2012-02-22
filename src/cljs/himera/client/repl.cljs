@@ -1,4 +1,5 @@
-(ns himera.client.repl)
+(ns himera.client.repl
+  (:require [cljs.reader :as reader]))
 
 (defn- map->js [m]
   (let [out (js-obj)]
@@ -13,8 +14,8 @@
                          :contentType "application/clojure"
                          :async false
                          :type "POST"
-                         :dataType "json"
-                         :success #(reset! data %)})]
+                         :dataType "text"
+                         :success #(reset! data (reader/read-string %))})]
     (.ajax js/jQuery params)
     @data))
 
@@ -30,10 +31,10 @@
 (defn- on-handle [line, report]
   (let [input (.trim js/jQuery line)
         compiled (go-compile input)]
-    (if-let [err (and compiled (.-error compiled))]
+    (if-let [err (and compiled (:error compiled))]
       (build-msg "Compilation error: " err "jquery-console-message-error")
       (try
-        (build-msg "" (pr-str (js/eval (.-js compiled))) "jquery-console-message-value")
+        (build-msg "" (pr-str (js/eval (:js compiled))) "jquery-console-message-value")
         (catch js/Error e
           (build-msg "Compilation error: " e "jquery-console-message-error"))))))
 
