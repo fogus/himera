@@ -21,18 +21,27 @@
 
 ;; (binding [comp/namespaces (atom @comp/namespaces) cljsc/compiled-cljs (atom {})])
 
-(defn build
+#_(defn build
   [expr opt pp]
+  (println (str "===> " [expr (class expr)]))
   {:js (cljsc/build expr
                     {:optimizations opt,
                      :pretty-print  pp})
    :status 200})
 
+(defn build [expr opt pp]
+  (println (str "===> " [expr (class expr)]))
+  {:js
+   (binding [comp/*cljs-ns* 'cljs.user]
+     (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
+                :context :statement
+                :locals {}}]
+       (comp/emits (comp/analyze env expr))))
+   :status 200})
+
 (defn format
   [{:keys [js status]}]
-  {:headers {"Content-Type" "text/plain"}
-   :status status
-   :js js})
+  {:js js})
 
 (defn compile
   [form opt pp]
