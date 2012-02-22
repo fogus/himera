@@ -21,5 +21,5 @@
   :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
   :source-path "src/clj"
   :main himera.server.app
-  :hooks [leiningen.js])
+  :hooks [leiningen.js leiningen.cljsbuild])
 
