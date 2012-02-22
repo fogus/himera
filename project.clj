@@ -18,6 +18,7 @@
                :output-to "resources/public/repl.js"
                :optimizations :simple
                :pretty-print true}}
+  :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
   :source-path "src/clj"
   :main himera.server.app
   :hooks [leiningen.js])
