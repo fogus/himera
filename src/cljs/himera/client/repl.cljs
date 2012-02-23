@@ -1,5 +1,6 @@
 (ns himera.client.repl
-  (:require [cljs.reader :as reader]))
+  (:require [cljs.reader :as reader]
+            [clojure.string :as str]))
 
 (defn- map->js [m]
   (let [out (js-obj)]
@@ -28,15 +29,25 @@
    (map->js {:msg (str title msg)
              :className klass})))
 
-(defn- on-handle [line, report]
-  (let [input (.trim js/jQuery line)
-        compiled (go-compile input)]
-    (if-let [err (and compiled (:error compiled))]
-      (build-msg "Compilation error: " err "jquery-console-message-error")
-      (try
-        (build-msg "" (pr-str (js/eval (:js compiled))) "jquery-console-message-value")
-        (catch js/Error e
-          (build-msg "Compilation error: " e "jquery-console-message-error"))))))
+(defn- starts-with? [o s]
+  (= (.slice (str/trim s)
+             0
+             (.-length o))
+     o))
+
+(def ^:private is-comment? #(starts-with? ";" %))
+
+(defn- on-handle [line report]
+  (if (is-comment? line)
+    (build-msg "" "" "jquery-console-message-value")
+    (let [compiled (go-compile input)
+          input (.trim js/jQuery line)]
+      (if-let [err (and compiled (:error compiled))]
+        (build-msg "Compilation error: " err "jquery-console-message-error")
+        (try
+          (build-msg "" (pr-str (js/eval (:js compiled))) "jquery-console-message-value")
+          (catch js/Error e
+            (build-msg "Compilation error: " e "jquery-console-message-error")))))))
 
 (defn ^:export go []
   (.ready (js/jQuery js/document)
