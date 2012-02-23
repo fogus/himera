@@ -1,6 +1,6 @@
 (ns himera.server.cljs
-  (:require [cljs.compiler :as comp]
-            #_[cljs.closure :as cljsc])
+  (:require [cljs.compiler :as comp])
+  (:require [himera.server.setup :as setup])
   (:import [java.io PushbackReader BufferedReader StringReader]
            [clojure.lang ISeq]))
 
@@ -24,8 +24,9 @@
   {:js
    (binding [comp/*cljs-ns* 'cljs.user]
      (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
+                :uses #{'cljs.core}
                 :context :expr
-                :locals {}}]
+                :locals (setup/load-core-names)}]
        (with-redefs [comp/get-expander exp]
          (comp/emits (comp/analyze env expr)))))
    :status 200})
