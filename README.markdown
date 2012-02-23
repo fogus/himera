@@ -74,6 +74,10 @@ To exercise the compilation service from the command line, try the following:
   * Dynamic JS library loading
   * Other plans not yet devised
 
+## Thanks
+
+Thanks to Tim McCormack, Paul Michael Bauer, and Anthony Grimes for the hard work in blazing the trail for online Clojure and ClojureScript REPLage and compilationation.  Also thanks to Craig Andera and Chris Redinger for moral support and letting me bounce insane ideas off of them.
+
 ## License
 
 Copyright (C) 2012 Fogus
