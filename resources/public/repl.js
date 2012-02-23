@@ -7864,14 +7864,12 @@ himera.client.repl.on_handle = function(a) {
   if(cljs.core.truth_(himera.client.repl.is_comment_QMARK_.call(null, a))) {
     return himera.client.repl.build_msg.call(null, "", "", "jquery-console-message-value")
   }
-  var b = himera.client.repl.go_compile.call(null, himera.client.repl.input);
-  jQuery.trim(a);
-  a = cljs.core.truth_(b) ? "\ufdd0'error".call(null, b) : b;
-  if(cljs.core.truth_(a)) {
-    return himera.client.repl.build_msg.call(null, "Compilation error: ", a, "jquery-console-message-error")
+  var a = jQuery.trim(a), a = himera.client.repl.go_compile.call(null, a), b = cljs.core.truth_(a) ? "\ufdd0'error".call(null, a) : a;
+  if(cljs.core.truth_(b)) {
+    return himera.client.repl.build_msg.call(null, "Compilation error: ", b, "jquery-console-message-error")
   }
   try {
-    return himera.client.repl.build_msg.call(null, "", cljs.core.pr_str.call(null, eval.call(null, "\ufdd0'js".call(null, b))), "jquery-console-message-value")
+    return himera.client.repl.build_msg.call(null, "", cljs.core.pr_str.call(null, eval.call(null, "\ufdd0'js".call(null, a))), "jquery-console-message-value")
   }catch(c) {
     if(cljs.core.truth_(cljs.core.instance_QMARK_.call(null, Error, c))) {
       return himera.client.repl.build_msg.call(null, "Compilation error: ", c, "jquery-console-message-error")

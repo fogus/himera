@@ -40,8 +40,8 @@
 (defn- on-handle [line report]
   (if (is-comment? line)
     (build-msg "" "" "jquery-console-message-value")
-    (let [compiled (go-compile input)
-          input (.trim js/jQuery line)]
+    (let [input (.trim js/jQuery line)
+          compiled (go-compile input)]
       (if-let [err (and compiled (:error compiled))]
         (build-msg "Compilation error: " err "jquery-console-message-error")
         (try
