@@ -12,7 +12,7 @@
   (let [ret-val (pr-str {:js (string/trim-newline (:js data))})]
     (println ret-val)
     {:status (or status 200)
-     :headers {"Content-Type" "application/clojure"}
+     :headers {"Content-Type" "application/clojure; charset=utf-8"}
      :body ret-val}))
 
 (defroutes handler

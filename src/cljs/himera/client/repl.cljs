@@ -11,7 +11,7 @@
   (let [data (atom nil)
         params (map->js {:url "/compile"
                          :data (str "{:expr " code "}")
-                         :contentType "application/clojure"
+                         :contentType "application/clojure; charset=utf-8"
                          :async false
                          :type "POST"
                          :dataType "text"
@@ -43,8 +43,8 @@
           (fn []
             (set! js/controller
                   (doto (js/jQuery "#console")
-                    (.console (map->js {:welcomeMessage "Never stop typing."
-                                        :promptLabel "himera> "
+                    (.console (map->js {:welcomeMessage "Himera REPL v0.0.1"
+                                        :promptLabel "cljs.user> "
                                         :commandValidate on-validate
                                         :commandHandle on-handle
                                         :autofocus true
