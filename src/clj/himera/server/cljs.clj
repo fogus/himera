@@ -1,42 +1,36 @@
 (ns himera.server.cljs
-  (:refer-clojure :exclude (format compile))
   (:require [cljs.compiler :as comp]
-            [cljs.closure :as cljsc])
+            #_[cljs.closure :as cljsc])
   (:import [java.io PushbackReader BufferedReader StringReader]
            [clojure.lang ISeq]))
 
-(defn forms-seq [^PushbackReader reader]
-  (lazy-seq
-   (if-let [form (read reader nil nil)]
-     (cons form (forms-seq reader)))))
-
-(extend-protocol cljsc/Compilable
-  String
-  (-compile [this opts]
-    (-> (StringReader. this)
-        (BufferedReader.)
-        (PushbackReader.)
-        forms-seq
-        cljsc/compile-form-seq)))
-
-;; (binding [comp/namespaces (atom @comp/namespaces) cljsc/compiled-cljs (atom {})])
+(defn- exp [sym env]
+  (let [mvar
+        (when-not (or (-> env :locals sym)        ;locals hide macros
+                      (-> env :ns :excludes sym))
+          (if-let [nstr (namespace sym)]
+            (when-let [ns (cond
+                           (= "clojure.core" nstr) (find-ns 'cljs.core)
+                           (.contains nstr ".") (find-ns (symbol nstr))
+                           :else
+                           (-> env :ns :requires-macros (get (symbol nstr))))]
+              (.findInternedVar ^clojure.lang.Namespace ns (symbol (name sym))))
+            (if-let [nsym (-> env :ns :uses-macros sym)]
+              (.findInternedVar ^clojure.lang.Namespace (find-ns nsym) sym)
+              (.findInternedVar ^clojure.lang.Namespace (find-ns 'cljs.core) sym))))]
+    (when mvar @mvar)))
 
 (defn build [expr opt pp]
-  (println (str "===> " [expr (class expr)]))
   {:js
    (binding [comp/*cljs-ns* 'cljs.user]
      (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
                 :context :expr
                 :locals {}}]
-       (comp/emits (comp/analyze env expr))))
+       (with-redefs [comp/get-expander exp]
+         (comp/emits (comp/analyze env expr)))))
    :status 200})
 
-(defn format
-  [{:keys [js status]}]
-  {:js js})
-
-(defn compile
+(defn compilation
   [form opt pp]
   (-> form
-      (build opt pp)
-      format))
+      (build opt pp)))

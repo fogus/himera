@@ -22,7 +22,7 @@
        (generate-response {:hello name}))
 
   (POST "/compile" [expr]
-        (generate-response (cljs/compile expr :simple false)))
+        (generate-response (cljs/compilation expr :simple false)))
 
   (route/resources "/"))
 
