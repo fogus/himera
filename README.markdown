@@ -43,12 +43,12 @@ Then visit <http://localhost:8080/> and never stop typing.  For example, common 
 
 To use [jQuery](http://jquery.com) from the Himera REPL, try the following:
 
-    (def nst (js/jQuery "#nst"))
+    (def anchor (js/jQuery "a"))
 	
-	(.text nst)
-	;=> "never stop typing..."
+	(.text anchor)
+	;=> "Source..."
 	
-	(.text nst "...ever")
+	(.text anchor "Github repo...")
 
 To exercise the compilation service from the command line, try the following:
 
