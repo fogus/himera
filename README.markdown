@@ -60,7 +60,7 @@ To exercise the compilation service from the command line, try the following:
 
 ## Current limitations
 
-  * No way to override functions defined in `cljs.core`
+* No way to override functions defined in `cljs.core`
   * `defrecord` access is not working
   * Creating namespaces does not work
   * No access to other ClojureScript namespaces (set, string, zip, etc.)
