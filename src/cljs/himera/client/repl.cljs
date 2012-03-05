@@ -8,7 +8,10 @@
 
 (ns himera.client.repl
   (:require [cljs.reader :as reader]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.set :as set]
+            [clojure.walk :as walk]
+            [clojure.zip :as zip]))
 
 (defn- map->js [m]
   (let [out (js-obj)]
