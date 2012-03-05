@@ -80,6 +80,6 @@ Thanks to Tim McCormack, Paul Michael Bauer, and Anthony Grimes for the hard wor
 
 ## License
 
-Copyright (C) 2012 Fogus
+Copyright (C) 2012 Fogus and Relevance, Inc.
 
 Distributed under the Eclipse Public License, the same as Clojure.
