@@ -12,10 +12,6 @@
   (:import [java.io PushbackReader BufferedReader StringReader]
            [clojure.lang ISeq]))
 
-(def ^:private macs (set '[-> ->> ..  and assert comment cond declare defn defn-
-                           doto extend-protocol fn for if-let if-not let letfn loop
-                           or when when-first when-let when-not while]))
-
 (defn- exp [sym env]
   (let [mvar
         (when-not (or (-> env :locals sym)        ;locals hide macros
@@ -30,8 +26,10 @@
             (if-let [nsym (-> env :ns :uses-macros sym)]
               (.findInternedVar ^clojure.lang.Namespace (find-ns nsym) sym)
               (.findInternedVar ^clojure.lang.Namespace (find-ns 'cljs.core) sym))))]
-    (when (and mvar (macs (symbol (.getName sym))))
-      @mvar)))
+    (println [sym mvar])
+    (let [sym (symbol (.getName sym))]
+      (when (and mvar (or (setup/clojure-macros sym) (setup/cljs-macros sym)))
+        @mvar))))
 
 (defn build [expr opt pp]
   {:js

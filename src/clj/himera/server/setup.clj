@@ -245,3 +245,9 @@
 
 (defn load-core-names []
   core-names)
+
+(def cljs-macros (quote #{== time doseq bit-or nil? for bit-set false? true? bit-xor dotimes defmethod + this-as defrecord * - identical? bit-flip zero? bit-and / neg? assert inc bit-not aset bit-clear extend-type condp < amap > max >= bit-shift-left deftype <= pos? defmulti reify mod dec undefined? aget try bit-shift-right lazy-seq areduce alength defprotocol bit-and-not satisfies? assert-args binding min bit-test}))
+
+(def clojure-macros (set '[-> ->> ..  and assert comment cond declare defn defn-
+                           doto extend-protocol fn for if-let if-not let letfn loop
+                           or when when-first when-let when-not while]))

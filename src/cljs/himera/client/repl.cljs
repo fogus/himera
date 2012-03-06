@@ -41,7 +41,7 @@
              :className klass})))
 
 (defn- starts-with? [o s]
-  (= (.slice (str/trim s)
+  (= (.slice (clojure.string/trim s)
              0
              (.-length o))
      o))
