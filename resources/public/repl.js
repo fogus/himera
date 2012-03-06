@@ -8304,7 +8304,7 @@ himera.client.repl.on_handle = function(a) {
 himera.client.repl.go = function() {
   return jQuery.call(null, document).ready(function() {
     var a = jQuery.call(null, "#console");
-    a.console(himera.client.repl.map__GT_js.call(null, cljs.core.ObjMap.fromObject("\ufdd0'welcomeMessage,\ufdd0'promptLabel,\ufdd0'commandValidate,\ufdd0'commandHandle,\ufdd0'autofocus,\ufdd0'animateScroll,\ufdd0'promptHistory".split(","), {"\ufdd0'welcomeMessage":"Himera REPL v0.0.1", "\ufdd0'promptLabel":"cljs.user> ", "\ufdd0'commandValidate":himera.client.repl.on_validate, "\ufdd0'commandHandle":himera.client.repl.on_handle, "\ufdd0'autofocus":!0, "\ufdd0'animateScroll":!0, "\ufdd0'promptHistory":!0})));
+    a.console(himera.client.repl.map__GT_js.call(null, cljs.core.ObjMap.fromObject("\ufdd0'welcomeMessage,\ufdd0'promptLabel,\ufdd0'commandValidate,\ufdd0'commandHandle,\ufdd0'autofocus,\ufdd0'animateScroll,\ufdd0'promptHistory".split(","), {"\ufdd0'welcomeMessage":"Himera REPL v0.1.0", "\ufdd0'promptLabel":"cljs.user> ", "\ufdd0'commandValidate":himera.client.repl.on_validate, "\ufdd0'commandHandle":himera.client.repl.on_handle, "\ufdd0'autofocus":!0, "\ufdd0'animateScroll":!0, "\ufdd0'promptHistory":!0})));
     return controller = a
   })
 };
