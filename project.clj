@@ -16,9 +16,9 @@
                  [com.google.javascript/closure-compiler "r1592"]
                  [org.clojure/google-closure-library "0.0-790"]
                  [org.mozilla/rhino "1.7R3"]]
+  :plugins [[lein-cljsbuild "0.1.2"]]
   :dev-dependencies [[jline "0.9.94"]
-                     [lein-marginalia "0.7.0-SNAPSHOT"]
-                     [lein-cljsbuild "0.0.13"]]
+                     [lein-marginalia "0.7.0-SNAPSHOT"]]
   :cljsbuild {:source-path "src/cljs"
               :jar true
               :compiler
