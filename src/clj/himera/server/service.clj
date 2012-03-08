@@ -14,11 +14,15 @@
             [compojure.route :as route]
             [ring.util.response :as resp]))
 
-;; (str "{\"js\" : " (string/trim-newline (if-let [d (:js data)] (pr-str d) "null")) "}")
-
 (defn generate-response [data & [status]]
   (let [ret-val (pr-str {:js (string/trim-newline (:js data))})]
     (println ret-val)
+    {:status (or status 200)
+     :headers {"Content-Type" "application/clojure; charset=utf-8"}
+     :body ret-val}))
+
+(defn generate-ast-response [data & [status]]
+  (let [ret-val (pr-str {:ast (:js data)})]
     {:status (or status 200)
      :headers {"Content-Type" "application/clojure; charset=utf-8"}
      :body ret-val}))
@@ -31,6 +35,9 @@
 
   (POST "/compile" [expr]
         (generate-response (cljs/compilation expr :simple false)))
+
+  (POST "/ast" [expr]
+        (generate-ast-response (cljs/analyze expr :simple true)))
 
   (route/resources "/"))
 

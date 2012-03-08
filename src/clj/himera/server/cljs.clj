@@ -31,18 +31,21 @@
       (when (and mvar (or (setup/clojure-macros sym) (setup/cljs-macros sym)))
         @mvar))))
 
-(defn build [expr opt pp]
+(defn build [action locals expr opt pp]
   {:js
    (binding [comp/*cljs-ns* 'cljs.user]
      (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
                 :uses #{'cljs.core}
                 :context :expr
-                :locals (setup/load-core-names)}]
+                :locals locals}]
        (with-redefs [comp/get-expander exp]
-         (comp/emits (comp/analyze env expr)))))
+         (action env expr))))
    :status 200})
 
-(defn compilation
-  [form opt pp]
-  (-> form
-      (build opt pp)))
+(def compilation (partial build
+                          #(comp/emits (comp/analyze % %2))
+                          (setup/load-core-names)))
+
+(def analyze (partial build
+                      #(comp/analyze % %2)
+                      {}))
