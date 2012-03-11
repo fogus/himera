@@ -12,6 +12,30 @@
   (:import [java.io PushbackReader BufferedReader StringReader]
            [clojure.lang ISeq]))
 
+(declare exp)
+
+(defn build [action locals expr opt pp]
+  {:result
+   (binding [comp/*cljs-ns* 'cljs.user]
+     (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
+                :uses #{'cljs.core}
+                :context :expr
+                :locals locals}]
+       (with-redefs [comp/get-expander exp]
+         (action env expr))))
+   :status 200})
+
+(def compilation (partial build
+                          #(comp/emits (comp/analyze % %2))
+                          (setup/load-core-names)))
+
+(def analyze (partial build
+                      #(comp/analyze % %2)
+                      {}))
+
+
+;; privates
+
 (defn- exp [sym env]
   (let [mvar
         (when-not (or (-> env :locals sym)        ;locals hide macros
@@ -30,22 +54,3 @@
     (let [sym (symbol (.getName sym))]
       (when (and mvar (or (setup/clojure-macros sym) (setup/cljs-macros sym)))
         @mvar))))
-
-(defn build [action locals expr opt pp]
-  {:js
-   (binding [comp/*cljs-ns* 'cljs.user]
-     (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
-                :uses #{'cljs.core}
-                :context :expr
-                :locals locals}]
-       (with-redefs [comp/get-expander exp]
-         (action env expr))))
-   :status 200})
-
-(def compilation (partial build
-                          #(comp/emits (comp/analyze % %2))
-                          (setup/load-core-names)))
-
-(def analyze (partial build
-                      #(comp/analyze % %2)
-                      {}))
