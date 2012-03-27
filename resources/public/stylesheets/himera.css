@@ -124,3 +124,13 @@ ul.footer-links {
 #console span.jquery-console-prompt-label { 
   font-weight:bold;
 }
+
+.ebnf {
+  color:#444; font-family:monospace;
+  text-transform: uppercase;
+}
+
+.doc-link {
+  font-size: 0.65em;
+  text-decoration: none;
+}

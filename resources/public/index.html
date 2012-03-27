@@ -22,6 +22,7 @@ remove this notice, or any other, from this software.
   <link rel="stylesheet" type="text/css" href="stylesheets/layout.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/skeleton.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/himera.css" />
+  <title>Himera -- Химера</title>
 </head>
 <body>
 
@@ -29,7 +30,7 @@ remove this notice, or any other, from this software.
     
     <h1>Himera</h1>
     
-    <h2>ClojureScript compiler. Simple in-browser REPL. Widgetized awesomeness.</h2>
+    <h2>ClojureScript compiler as webservice.</h2>
 
     <div class="console" id="console"></div>
     
@@ -38,48 +39,125 @@ remove this notice, or any other, from this software.
     </div><!-- /source -->
     
     <div class="rule sixteen columns"></div>
-    
-    <h3>ClojureScript Cheat Sheet</h3>
+
+    <h3>ClojureScript at a glance - <a href="https://github.com/fogus/clojure-cheatsheets/blob/master/pdf/cljs-cheatsheet.pdf?raw=true" class="doc-link">PDF</a> | <a href="http://clojuredocs.org/" class="doc-link">Searchable docs</a></h3>
     
     <div class="cheat-box-container eight columns">
       <div class="cheat-box">
-        <h4>Cheat Sheet Topic Title</h4>
+        <h4>Datatypes</h4>
         <table>
           <tr class="row-one">
-            <td class="row-label">Label</td>
-            <td>Some lovely code goes here</td>
+            <td class="row-label">Map</td>
+            <td>{:key1 :val1, :key2 :val2}</td>
           </tr>
           <tr>
-            <td class="row-label">Longer Label</td>
-            <td>Some lovely code goes here</td>
+            <td class="row-label">Vectors</td>
+            <td>[1 2 3 4 :a :b :c 1 2]</td>
+          </tr>
+          <tr class="row-one">
+            <td class="row-label">Sets</td>
+            <td>#{:a :b :c 1 2 3}</td>
+          </tr>
+          <tr>
+            <td class="row-label">Scalars</td>
+            <td>a-symbol, :a-keyword, "a string"</td>
+          </tr>
+        </table>
+      </div><!-- /cheat-box -->
+      <div class="cheat-box">
+        <h4>Functions</h4>
+        <table>
+          <tr class="row-one">
+            <td class="row-label">Calling</td>
+            <td>(<span class="ebnf">&lt;function&gt;</span>
+	         <span class="ebnf">&lt;args*&gt;</span>)</td>
+          </tr>
+          <tr>
+            <td class="row-label">Defining named functions</td>
+            <td>(defn <span class="ebnf">&lt;name&gt;</span> 
+                  [<span class="ebnf">&lt;args*&gt;</span>]
+	          <span class="ebnf">|constraints|</span>
+                  <span class="ebnf">&lt;actions*&gt;</span>)</td>
+          </tr>
+          <tr class="row-one">
+            <td class="row-label">Anonymous function</td>
+            <td>(fn <span class="ebnf">|name|</span>
+                  [<span class="ebnf">&lt;args*&gt;</span>]
+	          <span class="ebnf">|constraints|</span> 
+                  <span class="ebnf">&lt;actions*&gt;</span>)</td>
+          </tr>
+          <tr>
+            <td class="row-label">Anonymous inline function</td>
+            <td>#(<span class="ebnf">&lt;action&gt;</span>
+	          <span class="ebnf">|%,%2,%3, or %&|</span>)</td>
           </tr>
         </table>
       </div><!-- /cheat-box -->
     </div><!-- /cheat-box-container -->
-    
+
     <div class="cheat-box-container eight columns">
       <div class="cheat-box">
-        <h4>Cheat Sheet Topic Title</h4>
+        <h4>Useful Functions</h4>
         <table>
           <tr class="row-one">
-            <td class="row-label">Label</td>
-            <td>Some lovely code goes here</td>
+            <td class="row-label">Math</td>
+            <td>+ - * / quot rem mod inc dec max min</td>
           </tr>
           <tr>
-            <td class="row-label">Longer Label</td>
-            <td>Some lovely code goes here</td>
+            <td class="row-label">Comparison</td>
+            <td>= == not= < > <= >=</td>
+          </tr>
+          <tr class="row-one">
+            <td class="row-label">Predicates</td>
+            <td>nil? identical? zero? pos? neg? even? odd? true? false?</td>
+          </tr>
+          <tr>
+            <td class="row-label">Data processing</td>
+            <td>map reduce filter partition split-at split-with</td>
+          </tr>
+          <tr class="row-one">
+            <td class="row-label">Data create</td>
+            <td>vector vec hash-map set for list list*</td>
+          </tr>
+          <tr>
+            <td class="row-label">Data inspection</td>
+            <td>first rest get get-in keys vals count get nth contains? find</td>
+          </tr>
+          <tr class="row-one">
+            <td class="row-label">Data manipulation</td>
+            <td>seq into conj cons assoc assoc-in dissoc zipmap merge merge-with select-keys update-in</td>
+          </tr>
+          <tr>
+            <td class="row-label">Arrays</td>
+            <td>first rest get get-in keys vals count get nth contains? find</td></td>
           </tr>
         </table>
       </div><!-- /cheat-box -->
+      <div class="cheat-box">
+        <h4>Useful Macros</h4>
+        <table>
+          <tr class="row-one">
+            <td class="row-label">Conditionals</td>
+            <td>if if-let cond and or when when-let</td>
+          </tr>
+          <tr>
+            <td class="row-label">Nesting, chaining, and Interop</td>
+            <td>-> ->> doto .. .</td>
+          </tr>
+	</table>
+      </div>
     </div><!-- /cheat-box-container -->
-    
+        
     <div class="rule sixteen columns"></div>
     
-    <div class="one column footer-logo">Himera</div>
+    <div class="column footer-logo">Himera &copy; 2012 Fogus and Relevance Inc.</div>
     
     <ul class="footer-links">
       <li><a href="http://clojure.org/">Clojure.org</a></li>
       <li><a href="https://github.com/clojure/clojurescript">ClojureScript</a></li>
+      <li><a href="http://clojuredocs.org/">Clojure Docs</a></li>
+      <li><a href="http://blog.fogus.me">Fogus</a></li>
+      <li><a href="http://joyofclojure.com">Joy of Clojure</a></li>
     </ul>
 
   </div><!-- / container -->
