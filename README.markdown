@@ -2,6 +2,8 @@
 
 ClojureScript compiler as service with a simple in-browser REPL.
 
+[Try it on Heroku](http://warm-wind-7890.herokuapp.com/)
+
 ## Build
 
     lein deps
