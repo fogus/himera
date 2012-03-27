@@ -1,8 +1,4 @@
 .lein-plugins
-resources/public/repl.js
-resources/public/clojure
-resources/public/cljs
-resources/public/himera
 /pom.xml
 *jar
 /lib
@@ -11,4 +7,4 @@ resources/public/himera
 /.lein-failures
 /checkouts
 /.lein-deps-sum
-*jquery*
+
