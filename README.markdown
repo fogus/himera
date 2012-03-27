@@ -17,6 +17,8 @@ To start Himera locally using [Leiningen](https://github.com/technomancy/leining
 
 Then visit <http://localhost:8080/> and never stop typing.  For example, common ClojureScript functions and macros work as expected:
 
+```clojure
+
     (map (fn [n] (* n n n)) [1 2 3 4])
 	;=> (1 8 27 64)
 	
@@ -42,8 +44,11 @@ Then visit <http://localhost:8080/> and never stop typing.  For example, common 
 	
 	(classify-age {:age 36})
 	;=> :ancient
+```
 
 To use [jQuery](http://jquery.com) from the Himera REPL, try the following:
+
+```clojure
 
     (def anchor (js/jQuery "a"))
 	
@@ -51,14 +56,18 @@ To use [jQuery](http://jquery.com) from the Himera REPL, try the following:
 	;=> "Source..."
 	
 	(.text anchor "Github repo...")
+```
 
 To exercise the compilation service from the command line, try the following:
+
+```sh
 
     $ curl -X POST -H "Content-Type: application/clojure" \
 	    -d '{:expr ((fn foo [x] (js/alert x)) 42)}' \
 		http://localhost:8080/compile
 	
 	#=> {:js "(function foo(x){\nreturn alert.call(null,x);\n}).call(null,42)"}
+```
 
 ## Current limitations
 
@@ -66,6 +75,7 @@ To exercise the compilation service from the command line, try the following:
   * `defrecord` access is not working
   * Creating namespaces does not work
   * Other problems not yet discovered
+  * ClojureScript's `/` function is not munged properly
 
 ## Plans
 
