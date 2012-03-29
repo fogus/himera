@@ -285,7 +285,7 @@
                 return false;
             }
           // // C-v: don't insert on paste event
-            if (e.ctrlKey && String.fromCharCode(keyCode).toLowerCase() == 'v') {
+            if ((e.ctrlKey || e.metaKey) && String.fromCharCode(keyCode).toLowerCase() == 'v') {
               return true;
             }
             if (acceptInput && cancelKeyPress != keyCode && keyCode >= 32){
@@ -409,7 +409,12 @@
 
         // Scroll to the bottom of the view
         function scrollToBottom() {
-            inner.attr({ scrollTop: inner.attr("scrollHeight") });;
+            if (jQuery.fn.jquery > "1.6") {
+                inner.prop({ scrollTop: inner.prop("scrollHeight") });
+            }
+            else {
+                inner.attr({ scrollTop: inner.attr("scrollHeight") });
+            }
         };
 
 	function cancelExecution() {
