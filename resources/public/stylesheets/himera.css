@@ -134,3 +134,7 @@ ul.footer-links {
   font-size: 0.65em;
   text-decoration: none;
 }
+
+.syn-clear {
+  clear: both
+}

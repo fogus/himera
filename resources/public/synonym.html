@@ -1,0 +1,427 @@
+<!--
+Copyright (c) 2012 Fogus and Relevance Inc. All rights reserved.  The
+use and distribution terms for this software are covered by the Eclipse
+Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+which can be found in the file COPYING the root of this
+distribution.  By using this software in any fashion, you are
+agreeing to be bound by the terms of this license.  You must not
+remove this notice, or any other, from this software.
+-->
+
+<html>
+<head>
+  <script type="text/javascript" src="javascript/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="javascript/jquery.console.js"></script>
+  <script type="text/javascript" src="out/goog/base.js"></script>
+  <script type="text/javascript" src="con.js"></script>
+  <script type="text/javascript" src="repl.js"></script>
+  <script type="text/javascript">
+    goog.require('himera.client.repl');
+  </script>
+  <link rel="stylesheet" type="text/css" href="stylesheets/base.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/layout.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/skeleton.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/himera.css" />
+  <title>Himera Synonym</title>
+</head>
+<body>
+
+  <div class="container">
+    
+    <h1 id="title">Himera <span>Translations from JavaScript</span></h1>
+    
+    <div class="rule sixteen columns"></div>
+
+    <h3>Getting Started</h3>
+
+    <div class="syn-clear">
+        <h4>Printing to the console</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>console.log("Hello, world!");</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>(.log js/console "Hello, world!")</td>
+                    </tr>
+                </table>
+            </div><!-- /cheat-box -->
+        </div><!-- /cheat-box-container -->
+    </div>
+
+    <h4>Code modularity</h4>
+    <div>
+        <h5>Define a library</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>// No native implementation</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>(ns my.library)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h5>Use a library</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>// No native implementation</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+(ns my.library
+  (:require [other.library :as other]))</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h4>Variables</h4>
+    <div>
+        <h5>Top Level</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>var foo = "bar";</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>(def foo "bar")</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h5>Local Variables</h5>
+    <div class="cheat-box-container eight columns">
+      <div class="cheat-box">
+        <table>
+          <tr class="row-one">
+            <td>
+                <pre>
+function foo() {
+  var bar = 1;
+}</pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="cheat-box-container eight columns">
+      <div class="cheat-box">
+        <table>
+          <tr class="row-one">
+            <td>
+                <pre>
+(defn foo []
+  (let [bar 1]))</pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="syn-clear">
+        <h5>Hoisting</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+// JavaScript "hoists" variables to the top of
+// their scope.  So the following function:
+function printName() {
+  console.log('Hello, ' + name);
+  var name = 'Bob';
+}
+
+// is equivalent to this function:
+function printName() {
+  var name;
+  console.log('Hello, ' + name);
+  name = 'Bob';
+}
+
+printName();
+// Hello, undefined</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+;; ClojureScript does not hoist variables
+;; this function will issue a warning
+(defn print-name []
+  (.log js/console "Hello, " name)
+  (let [name "Bob"]))</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="syn-clear">Collections</h5>
+    <div class="syn-clear">
+        <h5>Arrays</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+var a = new Array();
+var a = [];
+var a = [1 2 3]</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+(def a (array))
+(def a (array 1 2 3))</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-clear">
+        <h5>Immutable Lists</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+// No native implementation</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+(def l (list))
+(def l (list 1 2 3))
+(def l '(1 2 3))</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-clear">
+        <h5>Immutable Vectors</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+// No native implementation</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+(def v (vector))
+(def v [])
+(def v [1 2 3])</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-clear">
+        <h5>Immutable Sets</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+// No native implementation</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+(def s (set))
+(def s #{})
+(def s #{:cat :bird :dog})</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-clear">
+        <h5>Immutable HashMaps</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+// No native implementation</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+(def m (hash-map))
+(def m {})
+(def m {:foo 1 :bar 2})</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-clear">
+        <h5>Arbitrary Keys</h5>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+// Only string keys allows
+var m = {
+  "foo": 1,
+  "bar": 2
+};</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <table>
+                    <tr class="row-one">
+                        <td>
+                            <pre>
+;; Arbitrary keys allows
+(def m { [1 2] 3
+        #{1 2} 3
+        '(1 2) 3 })</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="rule sixteen columns"></div>
+    
+    <div class="column footer-logo">Himera &copy; 2012 Fogus and Relevance Inc.</div>
+    
+    <ul class="footer-links">
+      <li><a href="http://clojure.org/">Clojure.org</a></li>
+      <li><a href="https://github.com/clojure/clojurescript">ClojureScript</a></li>
+      <li><a href="http://clojuredocs.org/">Clojure Docs</a></li>
+      <li><a href="http://blog.fogus.me">Fogus</a></li>
+      <li><a href="http://joyofclojure.com">Joy of Clojure</a></li>
+    </ul>
+
+  </div><!-- / container -->
+
+<script>
+  himera.client.repl.go();
+  goog.require('cljs.core');
+  goog.provide('cljs.user');
+</script>
+
+</body>
+</html>
