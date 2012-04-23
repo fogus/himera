@@ -135,6 +135,33 @@ ul.footer-links {
   text-decoration: none;
 }
 
-.syn-clear {
-  clear: both
+/* Synonym Styles */
+
+#himera-synonym h1 {
+    margin-left: 10px;
+}
+
+#himera-synonym h1 div {
+    font-size: 16px;
+    color: black;
+}
+
+#himera-synonym h4,
+#himera-synonym h5 {
+    margin-left: 10px;
+}
+
+#himera-synonym .cheat-box-container {
+    margin-top: 0px;
+}
+
+#himera-synonym pre {
+    font-size: 13px;
+    font-family: monospace;
+}
+
+.syn-section {
+    clear: both;
+    float: left;
+    margin-bottom: 20px;
 }

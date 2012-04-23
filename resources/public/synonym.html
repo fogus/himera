@@ -26,149 +26,102 @@ remove this notice, or any other, from this software.
 </head>
 <body>
 
-  <div class="container">
+  <div id="himera-synonym" class="container">
     
-    <h1 id="title">Himera <span>Translations from JavaScript</span></h1>
+    <h1 id="title">Himera <div>Translations from JavaScript</div></h1>
     
     <div class="rule sixteen columns"></div>
 
     <h3>Getting Started</h3>
 
-    <div class="syn-clear">
+    <div class="syn-section">
         <h4>Printing to the console</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>console.log("Hello, world!");</td>
-                    </tr>
-                </table>
+                <pre>console.log("Hello, world!");</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>(.log js/console "Hello, world!")</td>
-                    </tr>
-                </table>
-            </div><!-- /cheat-box -->
-        </div><!-- /cheat-box-container -->
-    </div>
-
-    <h4>Code modularity</h4>
-    <div>
-        <h5>Define a library</h5>
-        <div class="cheat-box-container eight columns">
-            <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>// No native implementation</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="cheat-box-container eight columns">
-            <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>(ns my.library)</td>
-                    </tr>
-                </table>
+                <pre>(.log js/console "Hello, world!")</pre>
             </div>
         </div>
     </div>
 
-    <div>
-        <h5>Use a library</h5>
+    <h3>Code modularity</h3>
+    <div class="syn-section">
+        <h4>Define a library</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>// No native implementation</td>
-                    </tr>
-                </table>
+                <pre>// No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
+                <pre>(ns my.library)</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Use a library</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre>// No native implementation</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
                             <pre>
 (ns my.library
   (:require [other.library :as other]))</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <h4>Variables</h4>
-    <div>
-        <h5>Top Level</h5>
+    <h3>Variables</h3>
+    <div class="syn-section">
+        <h4>Top Level</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>var foo = "bar";</td>
-                    </tr>
-                </table>
+                <pre>var foo = "bar";</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>(def foo "bar")</td>
-                    </tr>
-                </table>
+                <pre>(def foo "bar")</pre>
             </div>
         </div>
     </div>
 
-    <h5>Local Variables</h5>
-    <div class="cheat-box-container eight columns">
-      <div class="cheat-box">
-        <table>
-          <tr class="row-one">
-            <td>
+    <div class="syn-section">
+        <h4>Local Variables</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
                 <pre>
 function foo() {
   var bar = 1;
 }</pre>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
+            </div>
+        </div>
 
-    <div class="cheat-box-container eight columns">
-      <div class="cheat-box">
-        <table>
-          <tr class="row-one">
-            <td>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
                 <pre>
 (defn foo []
   (let [bar 1]))</pre>
-            </td>
-          </tr>
-        </table>
-      </div>
+            </div>
+        </div>
     </div>
 
-    <div class="syn-clear">
-        <h5>Hoisting</h5>
+    <div class="syn-section">
+        <h4>Hoisting</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 // JavaScript "hoists" variables to the top of
 // their scope.  So the following function:
@@ -186,219 +139,385 @@ function printName() {
 
 printName();
 // Hello, undefined</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 ;; ClojureScript does not hoist variables
 ;; this function will issue a warning
 (defn print-name []
   (.log js/console "Hello, " name)
   (let [name "Bob"]))</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <h4 class="syn-clear">Collections</h5>
-    <div class="syn-clear">
-        <h5>Arrays</h5>
+    <h3 class="syn-clear">Collections</h4>
+    <div class="syn-section">
+        <h4>Arrays</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 var a = new Array();
 var a = [];
 var a = [1 2 3]</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 (def a (array))
 (def a (array 1 2 3))</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <div class="syn-clear">
-        <h5>Immutable Lists</h5>
+    <div class="syn-section">
+        <h4>Immutable Lists</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 // No native implementation</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 (def l (list))
 (def l (list 1 2 3))
 (def l '(1 2 3))</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <div class="syn-clear">
-        <h5>Immutable Vectors</h5>
+    <div class="syn-section">
+        <h4>Immutable Vectors</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 // No native implementation</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
-                            <pre>
 (def v (vector))
 (def v [])
 (def v [1 2 3])</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <div class="syn-clear">
-        <h5>Immutable Sets</h5>
+    <div class="syn-section">
+        <h4>Immutable Sets</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 // No native implementation</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 (def s (set))
 (def s #{})
 (def s #{:cat :bird :dog})</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <div class="syn-clear">
-        <h5>Immutable HashMaps</h5>
+    <div class="syn-section">
+        <h4>Immutable HashMaps</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 // No native implementation</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 (def m (hash-map))
 (def m {})
 (def m {:foo 1 :bar 2})</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
-    <div class="syn-clear">
-        <h5>Arbitrary Keys</h5>
+    <div class="syn-section">
+        <h4>Arbitrary Keys</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 // Only string keys allows
 var m = {
   "foo": 1,
   "bar": 2
 };</pre>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <table>
-                    <tr class="row-one">
-                        <td>
                             <pre>
 ;; Arbitrary keys allows
 (def m { [1 2] 3
         #{1 2} 3
         '(1 2) 3 })</pre>
-                        </td>
-                    </tr>
-                </table>
+            </div>
+        </div>
+    </div>
+
+    <h3>Functions</h3>
+    <div class="syn-section">
+        <h4>Function definition</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+function foo() {
+  ...
+  return true;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(defn foo []
+  true)
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Return Value</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// JavaScript is statement oriented
+// explicit return
+function foo() {
+  ...
+  return true;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+;; ClojureScript is expression oriented
+;; no explicit return
+(defn foo []
+  true)
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Assign a function to a variable</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var foo = function() {
+  ...
+  return true;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(def foo (fn [] true)
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Optional Parameters</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+function foo(a, b, c) { return c; };
+
+foo(1) // => undefined
+foo(1, 2, 3) // => 3
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(defn foo [a b c] c)
+
+(foo 1) ;; WARNING: function called with incorrect
+        ;; number of arguments
+
+(foo 1 2 3) ;; => 3
+</pre>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="syn-section">
+        <h4>Dispatch on arity</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// No native implementation must manipulate
+// arguments object - performance implications
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(defn foo
+  ([a] "one")
+  ([a b] "two")
+  ([a b c] "three"))
+
+(foo 1) ;; => "one"
+(foo 1 2) ;; => "two"
+(foo 1 2 3) ;; => "three"
+
+;; Under advanced compilation direct dispatch to
+;; arity. No arguments object manipulation
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Variable arguments</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// No native implementation. Manipulate arguments
+// object explicitly. Performance implications.
+function foo() {
+  var args = arguments;
+  ...
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+;; all arguments beyond two will be placed in a sequence
+;; bound to rest
+(defn foo [a b & rest]
+  ...)
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Named Parameters & Defaults</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// No native implementation. Pass objects explicitly.
+function foo(o) {
+  var bar = o.bar,
+      baz = o.baz;
+  ...
+}
+
+foo({bar: 1, baz: 2});
+
+function foo(o) {
+  var bar = o.bar || "default1",
+      baz = o.baz || "default2";
+  ...
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(defn foo [& {:keys [bar baz]}]
+  ...)
+
+(foo :bar 1 :baz 2)
+
+(defn foo [& {:keys [bar baz]
+              :or {bar "default1"
+                   baz "default2"}}]
+  ...)
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <h3>Iterators</h3>
+    <div class="syn-section">
+        <h4>Uniform Iteration For All Types</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// JavaScript does have uniform iteration over
+// native collections.
+var colors = ['red', 'orange', 'green'];
+
+for (var i = 0; i < colors.length; i++) {
+  console.log(colors[i]);
+}
+
+var data = { ... };
+
+for (var key in data) {
+  console.log('key', key);
+  console.log('value', data[key]);
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// All ClojureScript datastructures support uniform
+// iterations. JavaScript natives are safely extended
+// to the same iteration protocol
+(def colors (array "red" "orange" "green"))
+
+(doseq [color colors]
+  (.log js/console color))
+
+(def colorsv ["red" "orange" "green"])
+
+(doseq [color colorsv]
+  (.log js/console color)))
+
+(def data { ... })
+
+(doseq [[k v] data]
+  (.log js/console "key" k)
+  (.log js/console "value" v))
+</pre>
             </div>
         </div>
     </div>
