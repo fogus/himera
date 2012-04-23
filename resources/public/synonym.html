@@ -12,16 +12,16 @@ remove this notice, or any other, from this software.
 <head>
   <script type="text/javascript" src="javascript/jquery-1.4.2.min.js"></script>
   <script type="text/javascript" src="javascript/jquery.console.js"></script>
-  <script type="text/javascript" src="out/goog/base.js"></script>
-  <script type="text/javascript" src="con.js"></script>
-  <script type="text/javascript" src="repl.js"></script>
-  <script type="text/javascript">
-    goog.require('himera.client.repl');
-  </script>
+  <script type="text/javascript" src="vendor/xregexp-min.js"></script>
+  <script type="text/javascript" src="vendor/shCore.js"></script>
+  <script type="text/javascript" src="vendor/shBrushClojure.js"></script>
+  <script type="text/javascript" src="vendor/shBrushJScript.js"></script>
   <link rel="stylesheet" type="text/css" href="stylesheets/base.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/layout.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/skeleton.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/himera.css" />
+  <link rel="stylesheet" type="text/css" href="vendor/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="vendor/shThemeMarginalia.css" />
   <title>Himera Synonym</title>
 </head>
 <body>
@@ -38,13 +38,13 @@ remove this notice, or any other, from this software.
         <h4>Printing to the console</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>console.log("Hello, world!");</pre>
+                <pre class="brush: js">console.log("Hello, world!");</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>(.log js/console "Hello, world!")</pre>
+                <pre class="brush: clojure">(.log js/console "Hello, world!")</pre>
             </div>
         </div>
     </div>
@@ -54,13 +54,13 @@ remove this notice, or any other, from this software.
         <h4>Define a library</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>// No native implementation</pre>
+                <pre class="brush: js">// No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>(ns my.library)</pre>
+                <pre class="brush: clojure">(ns my.library)</pre>
             </div>
         </div>
     </div>
@@ -69,13 +69,13 @@ remove this notice, or any other, from this software.
         <h4>Use a library</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>// No native implementation</pre>
+                <pre class="brush: js">// No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (ns my.library
   (:require [other.library :as other]))</pre>
             </div>
@@ -87,13 +87,13 @@ remove this notice, or any other, from this software.
         <h4>Top Level</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>var foo = "bar";</pre>
+                <pre class="brush: js">var foo = "bar";</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>(def foo "bar")</pre>
+                <pre class="brush: clojure">(def foo "bar")</pre>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@ remove this notice, or any other, from this software.
         <h4>Local Variables</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>
+                <pre class="brush: js">
 function foo() {
   var bar = 1;
 }</pre>
@@ -111,7 +111,7 @@ function foo() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>
+                <pre class="brush: clojure">
 (defn foo []
   (let [bar 1]))</pre>
             </div>
@@ -122,7 +122,7 @@ function foo() {
         <h4>Hoisting</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // JavaScript "hoists" variables to the top of
 // their scope.  So the following function:
 function printName() {
@@ -144,7 +144,7 @@ printName();
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 ;; ClojureScript does not hoist variables
 ;; this function will issue a warning
 (defn print-name []
@@ -159,7 +159,7 @@ printName();
         <h4>Arrays</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var a = new Array();
 var a = [];
 var a = [1 2 3]</pre>
@@ -168,7 +168,7 @@ var a = [1 2 3]</pre>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def a (array))
 (def a (array 1 2 3))</pre>
             </div>
@@ -179,14 +179,14 @@ var a = [1 2 3]</pre>
         <h4>Immutable Lists</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def l (list))
 (def l (list 1 2 3))
 (def l '(1 2 3))</pre>
@@ -198,14 +198,14 @@ var a = [1 2 3]</pre>
         <h4>Immutable Vectors</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre>
+                <pre class="brush: clojure">
 (def v (vector))
 (def v [])
 (def v [1 2 3])</pre>
@@ -217,14 +217,14 @@ var a = [1 2 3]</pre>
         <h4>Immutable Sets</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def s (set))
 (def s #{})
 (def s #{:cat :bird :dog})</pre>
@@ -236,14 +236,14 @@ var a = [1 2 3]</pre>
         <h4>Immutable HashMaps</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation</pre>
             </div>
         </div>
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def m (hash-map))
 (def m {})
 (def m {:foo 1 :bar 2})</pre>
@@ -255,7 +255,7 @@ var a = [1 2 3]</pre>
         <h4>Arbitrary Keys</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // Only string keys allowed
 var m = {
   "foo": 1,
@@ -266,7 +266,7 @@ var m = {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 ;; Arbitrary keys allowed
 (def m { [1 2] 3
         #{1 2} 3
@@ -280,7 +280,7 @@ var m = {
         <h4>Function definition</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 function foo() {
   ...
   return true;
@@ -291,7 +291,7 @@ function foo() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (defn foo []
   true)
 </pre>
@@ -303,7 +303,7 @@ function foo() {
         <h4>Return Value</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // JavaScript is statement oriented
 // explicit return
 function foo() {
@@ -316,7 +316,7 @@ function foo() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 ;; ClojureScript is expression oriented
 ;; no explicit return
 (defn foo []
@@ -330,7 +330,7 @@ function foo() {
         <h4>Assign a function to a variable</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var foo = function() {
   ...
   return true;
@@ -341,7 +341,7 @@ var foo = function() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def foo (fn [] true))
 </pre>
             </div>
@@ -352,7 +352,7 @@ var foo = function() {
         <h4>Optional Parameters</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 function foo(a, b, c) { return c; };
 
 foo(1) // => undefined
@@ -363,7 +363,7 @@ foo(1, 2, 3) // => 3
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (defn foo [a b c] c)
 
 (foo 1) ;; WARNING: function called with incorrect
@@ -380,7 +380,7 @@ foo(1, 2, 3) // => 3
         <h4>Dispatch on arity</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation must manipulate
 // arguments object - performance implications
 </pre>
@@ -389,7 +389,7 @@ foo(1, 2, 3) // => 3
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (defn foo
   ([a] "one")
   ([a b] "two")
@@ -410,7 +410,7 @@ foo(1, 2, 3) // => 3
         <h4>Variable arguments</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation. Manipulate arguments
 // object explicitly. Performance implications.
 function foo() {
@@ -423,7 +423,7 @@ function foo() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 ;; all arguments beyond two will be placed in a
 ;; sequence bound to rest
 (defn foo [a b & rest]
@@ -437,7 +437,7 @@ function foo() {
         <h4>Named Parameters & Defaults</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation. Pass objects explicitly.
 function foo(o) {
   var bar = o.bar,
@@ -458,7 +458,7 @@ function foo(o) {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (defn foo [& {:keys [bar baz]}]
   ...)
 
@@ -478,7 +478,7 @@ function foo(o) {
         <h4>Uniform Iteration For All Types</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // JavaScript does not have uniform iteration
 // over native types.
 var colors = ['red', 'orange', 'green'];
@@ -499,10 +499,10 @@ for (var key in data) {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
-// All ClojureScript datastructures support uniform
-// iterations. JavaScript natives are safely extended
-// to the same iteration protocol
+                            <pre class="brush: clojure">
+;; All ClojureScript datastructures support
+;; uniform iterations. JavaScript natives are
+;; safely to the same iteration protocol
 (def colors (array "red" "orange" "green"))
 
 (doseq [color colors]
@@ -511,7 +511,7 @@ for (var key in data) {
 (def colorsv ["red" "orange" "green"])
 
 (doseq [color colorsv]
-  (.log js/console color)))
+  (.log js/console color))
 
 (def data { ... })
 
@@ -527,7 +527,7 @@ for (var key in data) {
         <h4>Closure and counters in loops</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var callbacks = [];
 
 // A closure must be used to preserve the return for
@@ -556,7 +556,7 @@ for (let i = 0; i < 10; i++) {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 ;; ClojureScript has proper lexical scope
 (def callbacks (atom []))
 
@@ -574,7 +574,7 @@ for (let i = 0; i < 10; i++) {
         <h4>Define</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 function Person(name) {
   this.name = name;
 }
@@ -588,7 +588,7 @@ Person.prototype.greet = function() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (deftype Person [name]
   Object
   (greet [_]
@@ -606,7 +606,7 @@ Person.prototype.greet = function() {
         <h4>Instantiate</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var person = new Person("Bob");
 </pre>
             </div>
@@ -614,7 +614,7 @@ var person = new Person("Bob");
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (Person. "Bob")
 </pre>
             </div>
@@ -625,7 +625,7 @@ var person = new Person("Bob");
         <h4>Reflection</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var name = "Bob";
 typeof name // => "string"
 </pre>
@@ -634,7 +634,7 @@ typeof name // => "string"
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 ;; reflection returns constructors not strings
 (def name "Bob")
 (type name) ;; => String
@@ -647,7 +647,7 @@ typeof name // => "string"
         <h4>Check Type</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var name = "Bob";
 
 name instanceof String // => true
@@ -659,7 +659,7 @@ name instanceof String // => true
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def name "Bob")
 
 (= (type name) js/String) ;; => true
@@ -676,7 +676,7 @@ name instanceof String // => true
         <h4>Protocols</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // Duck typing, implement two different types
 // with the same method names
 
@@ -698,7 +698,7 @@ Dog.prototype.sound = function() {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (defprotocol ISound (sound []))
 
 (deftype Cat []
@@ -722,7 +722,7 @@ Dog.prototype.sound = function() {
     <h3>Regular Expressions</h3>
     <div class="syn-section">
         <div class="cheat-box-container eight columns">
-            <div class="cheat-box">
+            <div class="cheat-box" class="brush: js">
                             <pre>
 var email = "test@example.com";
 email.match(/@/)
@@ -733,7 +733,7 @@ email.match(/@/)
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def email "test@example.com")
 (.match email #"@" email)
 ;; => ["@"]
@@ -744,7 +744,7 @@ email.match(/@/)
     <div class="syn-section">
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 var invalidEmail = "f@il@example.com";
 invalidEmail.match(/@/g)
 // => ["@", "@"]
@@ -754,7 +754,7 @@ invalidEmail.match(/@/g)
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (def invalid-email "f@il@example.com")
 (.match email #"(?g)@")
 ;; => ["@", "@"]
@@ -769,7 +769,7 @@ invalidEmail.match(/@/g)
         <h4>Throw an exception</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 throw Error("Oops!");
 </pre>
             </div>
@@ -777,7 +777,7 @@ throw Error("Oops!");
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (throw (js/Error. "Oops!"))
 </pre>
             </div>
@@ -788,7 +788,7 @@ throw Error("Oops!");
         <h4>Catch an exception</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 try {
   undefinedFunction();
 } catch(e) {
@@ -806,7 +806,7 @@ try {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 (try
   (undefined-function)
   (catch Error e
@@ -826,7 +826,7 @@ try {
         <h4>Runtime</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // JavaScript is dynamic, standard runtime
 // metaprogramming techniques applicable
 </pre>
@@ -835,7 +835,7 @@ try {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 // ClojureScript is dynamic, standard runtime
 // metaprogramming techniques applicable
 </pre>
@@ -847,7 +847,7 @@ try {
         <h4>Compile Time</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: js">
 // No native implementation, must use external
 // compilation tools.
 </pre>
@@ -856,7 +856,7 @@ try {
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                            <pre>
+                            <pre class="brush: clojure">
 // ClojureScript has compiler macros, no external
 // tool required
 (defmacro my-code-transformation [...]
@@ -886,10 +886,9 @@ try {
 
   </div><!-- / container -->
 
-<script>
-  himera.client.repl.go();
-  goog.require('cljs.core');
-  goog.provide('cljs.user');
+<script type="text/javascript">
+SyntaxHighlighter.defaults["gutter"] = false;
+SyntaxHighlighter.all();
 </script>
 
 </body>
