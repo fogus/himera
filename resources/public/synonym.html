@@ -561,7 +561,7 @@ for (let i = 0; i < 10; i++) {
 (def callbacks (atom []))
 
 (dotimes [i 2]
-  (swap! callbacks conj i))
+  (swap! callbacks conj (fn [] i)))
 
 ((@callbacks 0)) // => 0
 </pre>
