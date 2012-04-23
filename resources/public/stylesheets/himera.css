@@ -175,3 +175,14 @@ ul.footer-links {
     float: left;
     margin-bottom: 20px;
 }
+
+#himera-synonym table {
+    margin: 0;
+    padding: 0;
+}
+
+#himera-synonym .container {
+    margin: 0;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
