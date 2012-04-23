@@ -522,6 +522,202 @@ for (var key in data) {
         </div>
     </div>
 
+    <div class="syn-section">
+        <h4>Closure and counters in loops</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var callbacks = [];
+
+// A closure must be used to preserve the return for
+// each function at each step of the loop.  Otherwise
+// every entry in callbacks will return 2;
+for (var i = 0; i < 2; i++) {
+  (function(_i) {
+    callbacks.push(function() {
+      return _i;
+    });
+  })(i);
+}
+
+// Without the internal closure, the result is 2
+callbacks[0]() // == 0
+
+// ECMAScript 6 can support this with the use of blocks
+let callbacks = [];
+for (let i = 0; i < 10; i++) {
+  let j = i;
+  callbacks.push(function() { print(j) });
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+;; ClojureScript has proper lexical scope
+(def callbacks (atom []))
+
+(dotimes [i 2]
+  (swap! callbacks conj i))
+
+((@callbacks 0)) // => 0
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <h3>Types</h3>
+    <div class="syn-section">
+        <h4>Define</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function() {
+  return "Hello, " + this.name;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(deftype Person [name]
+  Object
+  (greet [_]
+    (str "Hello" name)))
+
+;; Constructors don't look like functions
+;; No explicit prototype manipulation
+;; No explicit 'this' to access fields
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Instantiate</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var person = new Person("Bob");
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(Person. "Bob")
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Reflection</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var name = "Bob";
+typeof name // => "string"
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+;; reflection returns constructors not strings
+(def name "Bob")
+(type name) ;; => String
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Check Type</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var name = "Bob";
+
+name instanceof String // => true
+
+(!(name instanceof int)) // => true
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(def name "Bob")
+
+(= (type name) js/String) ;; => true
+(string? name) ;; => true
+
+(not= (type name) js/Number) ;; => true
+(not (number? name)) ;; => true
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Protocols</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// Duck typing, implement two different types
+// with the same method names
+
+function Cat() {};
+Cat.prototype.sound = function() {
+  return "Meow!";
+}
+
+function Dog() {};
+Dog.prototype.sound = function() {
+  return "Woof!";
+}
+
+// lacking indirection no way to provide defaults
+(1).sound() // Error
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(defprotocol ISound (sound []))
+
+(deftype Cat []
+  ISound
+  (sound [_] "Meow!"))
+
+(deftype Dog []
+  ISound
+  (sound [_] "Woof!"))
+
+(extend-type default
+  ISound
+  (sound [_] "... silence ..."))
+
+(sound 1) ;; => "... silence ..."
+</pre>
+            </div>
+        </div>
+    </div>
+
     <div class="rule sixteen columns"></div>
     
     <div class="column footer-logo">Himera &copy; 2012 Fogus and Relevance Inc.</div>
