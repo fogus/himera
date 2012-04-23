@@ -756,8 +756,8 @@ invalidEmail.match(/@/g)
             <div class="cheat-box">
                             <pre>
 (def invalid-email "f@il@example.com")
-(.match email #"(?g)@")
-;; => ["@", "@"]
+(re-seq #"@" invalid-email)
+;; => ("@" "@")
 </pre>
             </div>
         </div>
