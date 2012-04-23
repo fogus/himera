@@ -718,6 +718,153 @@ Dog.prototype.sound = function() {
         </div>
     </div>
 
+    <h3>Regular Expressions</h3>
+    <div class="syn-section">
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var email = "test@example.com";
+email.match(/@/)
+// => ["@"]
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(def email "test@example.com")
+(.match email #"@" email)
+;; => ["@"]
+</pre>
+            </div>
+        </div>
+    </div>
+    <div class="syn-section">
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+var invalidEmail = "f@il@example.com";
+invalidEmail.match(/@/g)
+// => ["@", "@"]
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(def invalid-email "f@il@example.com")
+(.match email #"(?g)@")
+;; => ["@", "@"]
+</pre>
+            </div>
+        </div>
+    </div>
+    
+
+    <h3>Exceptions</h3>
+    <div class="syn-section">
+        <h4>Throw an exception</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+throw Error("Oops!");
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(throw (js/Error. "Oops!"))
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Catch an exception</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+try {
+  undefinedFunction();
+} catch(e) {
+  if (e instanceof ReferenceError) {
+    console.log('You called a function'+
+                'that does not exist');
+  }
+} finally {
+  console.log('This runs even if'+
+              'an exception is thrown');
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+(try
+  (undefined-function)
+  (catch Error e
+    (if (= (type e) js/ReferenceError)
+      (.log js/console
+        "You called a function that does not exist"))
+  (finally
+    (.log js/console
+        "this runs even if an exception is thrown"))))
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <h3>Metaprogramming</h3>
+    <div class="syn-section">
+        <h4>Runtime</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// JavaScript is dynamic, standard runtime
+// metaprogramming techniques applicable
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// ClojureScript is dynamic, standard runtime
+// metaprogramming techniques applicable
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Compile Time</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// No native implementation, must use external
+// compilation tools.
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre>
+// ClojureScript has compiler macros, no external
+// tool required
+(defmacro my-code-transformation [...]
+  ...)
+</pre>
+            </div>
+        </div>
+    </div>
+
     <div class="rule sixteen columns"></div>
     
     <div class="column footer-logo">Himera &copy; 2012 Fogus and Relevance Inc.</div>
