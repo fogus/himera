@@ -1232,6 +1232,47 @@ try {
         </div>
     </div>
 
+    <h3>Expression Problem</h3>
+    <div class="syn-section">
+        <h4>Modifying Types You Don't Control</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// JavaScript allows you to modify prototypes
+
+String.prototype.foo = function(...) {
+  ...
+};
+
+// Because of the likelihood of clashes this is
+// considered bad practice
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+;; ClojureScript namespaces everything, you
+;; can make local extensions with little worry
+
+(defprotocol MyStuff
+  (foo [this]))
+
+(extend-type string
+  MyStuff
+  (foo [this]
+    ...))
+
+;; In addition native JavaScript objects like
+;; Function, Object, Array, Number, String
+;; are never actually directly extended
+</pre>
+            </div>
+        </div>
+    </div>
+
+    
     <h3>Metaprogramming</h3>
     <div class="syn-section">
         <h4>Runtime</h4>
