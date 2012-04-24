@@ -920,6 +920,64 @@ for (let i = 0; i < 10; i++) {
         </div>
     </div>
 
+    <h3>Lazy Sequences</h3>
+    <div class="syn-section">
+        <h4>Map</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// this will traverse two arrays
+var colors = ["red", "green", "blue"];
+console.log((colors.map(function(s) {
+  return s[0];
+})).map(function(c) {
+  return c + "foo";
+})); // => ["rfoo", "gfoo", "bfoo"]
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+;; lazy, will only traverse once
+(def colors ["red" "green" "blue"])
+(println
+  (map #(str % "foo") (map first colors))
+;; => ("rfoo" "gfoo" "bfoo")</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Filter</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var numbers = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10];
+var filtered = numbers.filter(function(n) {
+  return n % 5 == 0;
+}); // filters entire array
+var firstn = filtered[0];
+// but we only want the first one
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def numbers [0 1 2 3 4 5 6 7 8 9 10])
+(def filtered
+  (filter #(zero? (rem % 5)) numbers))
+(def firstn (first filtered))
+;; lazy filter, values after 5 haven't
+;; been looked at
+</pre>
+            </div>
+        </div>
+    </div>
+
     <h3>Types</h3>
     <div class="syn-section">
         <h4>Define</h4>
