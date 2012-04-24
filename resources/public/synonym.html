@@ -160,6 +160,51 @@ printName();
     </div>
 
     <div class="syn-section">
+        <h4>Destructuring bind</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: js">
+// No native impelementation, must pull
+// aparts objects and arrays manually
+
+var o = {first: "Bob",
+         middle: "J",
+         last: "Smith"};
+
+var first = o.first;
+var last = o.last;
+var middle = o.middle;
+...
+                
+var color = [255, 255, 100, 0.5];
+var red = color[0];
+var green = color[1];
+var alpha = color[2];
+...</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: clojure">
+;; can always destructure in binding expression
+;; including, let, function arguments, loops, etc.
+(def m {:first "Bob"
+        :middle "J"
+        :last "Smith"})
+
+(let [{:keys [first middle last]} m]
+  ...)
+
+(def color [255 255 100 0.5])
+
+(let [[r g _ a] color]
+  ...)</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
         <h4>Dynamic binding</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
@@ -230,6 +275,25 @@ var a = [1 2 3]</pre>
                             <pre class="brush: clojure">
 (def a (array))
 (def a (array 1 2 3))</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Object</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var o = {};
+var o = new Object();
+var o = {foo: 1, bar: 2};</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def o (js-obj))</pre>
             </div>
         </div>
     </div>
@@ -721,7 +785,8 @@ function foo() {
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                             <pre class="brush: js">
-// No native implementation. Pass objects explicitly.
+// No native implementation. Pass objects
+// explicitly.
 function foo(o) {
   var bar = o.bar,
       baz = o.baz;
