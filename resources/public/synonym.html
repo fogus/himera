@@ -44,7 +44,12 @@ remove this notice, or any other, from this software.
 
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
-                <pre class="brush: clojure">(.log js/console "Hello, world!")</pre>
+                <pre class="brush: clojure">
+;; to print in browser console
+(.log js/console "Hello, world!")
+
+;; to print at ClojureScript REPL
+(println "Hello, world!")</pre>
             </div>
         </div>
     </div>
@@ -148,13 +153,67 @@ printName();
 ;; ClojureScript does not hoist variables
 ;; this function will issue a warning
 (defn print-name []
-  (.log js/console "Hello, " name)
+  (println "Hello, " name)
   (let [name "Bob"]))</pre>
             </div>
         </div>
     </div>
 
-    <h3 class="syn-clear">Collections</h4>
+    <div class="syn-section">
+        <h4>Dynamic binding</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: js">
+// can dynamic bind by putting
+// object in scope chain
+// performance implications
+var x = 5;
+var obj = {
+  x: 10
+};
+with(obj) {
+  console.log(x); // => 10
+}
+console.log(x); // => 5</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: clojure">
+;; efficient dynamic binding
+(def ^:dynamic x 5)
+(binding [x 10]
+  (println x)) ;; => 10
+(println x) ;; => 5</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Mutable Locals</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// In JavaScript locals are mutable
+function foo(x) {
+  x = "bar";
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+;; this will issue an error
+(defn foo [x]
+  (set! x "bar"))</pre>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="syn-clear">Primitive Collections</h4>
     <div class="syn-section">
         <h4>Arrays</h4>
         <div class="cheat-box-container eight columns">
@@ -175,6 +234,7 @@ var a = [1 2 3]</pre>
         </div>
     </div>
 
+    <h3 class="syn-clear">Immutable Collections</h4>
     <div class="syn-section">
         <h4>Immutable Lists</h4>
         <div class="cheat-box-container eight columns">
@@ -187,9 +247,11 @@ var a = [1 2 3]</pre>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                             <pre class="brush: clojure">
+;; efficient addition at head
 (def l (list))
 (def l (list 1 2 3))
-(def l '(1 2 3))</pre>
+(def l '(1 2 3))
+(conj l 4) ;; => '(4 1 2 3)</pre>
             </div>
         </div>
     </div>
@@ -206,15 +268,17 @@ var a = [1 2 3]</pre>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                 <pre class="brush: clojure">
+;; efficient addition at the end
 (def v (vector))
 (def v [])
-(def v [1 2 3])</pre>
+(def v [1 2 3])
+(conj v 4) ;; => [1 2 3 4]</pre>
             </div>
         </div>
     </div>
 
     <div class="syn-section">
-        <h4>Immutable Sets</h4>
+        <h4>Immutable Sets (Collection of unique items)</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                             <pre class="brush: js">
@@ -227,7 +291,8 @@ var a = [1 2 3]</pre>
                             <pre class="brush: clojure">
 (def s (set))
 (def s #{})
-(def s #{:cat :bird :dog})</pre>
+(def s #{"cat" "bird" "dog"})
+(conj s "cat") ;; => #{"cat" "bird" "dog"}</pre>
             </div>
         </div>
     </div>
@@ -246,7 +311,45 @@ var a = [1 2 3]</pre>
                             <pre class="brush: clojure">
 (def m (hash-map))
 (def m {})
-(def m {:foo 1 :bar 2})</pre>
+(def m {:foo 1 :bar 2})
+(conj m [:baz 3]) ;; => {:foo 1 :bar 2 :baz 3}</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Accessing Values</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// map access is a static
+// language feature
+var m = {
+  "foo": 1,
+  "bar": 2
+};
+
+m["foo"];
+m.foo;
+
+// array access is a static
+// language feature
+var a = ["red", "blue", "green"];
+a[0];
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+// collection access is first class
+(def m {:foo 1
+        :bar 2})
+(get m :foo)
+
+(def v ["red" "blue" "green"])
+(nth v 0)</pre>
             </div>
         </div>
     </div>
@@ -271,6 +374,186 @@ var m = {
 (def m { [1 2] 3
         #{1 2} 3
         '(1 2) 3 })</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Adding to a collection</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var a = [];
+a.push("foo"); // destructive update
+
+var b = {};
+b["bar"] = 1; // destructive update
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def a [])
+(conj a "foo") ;; => ["foo"]
+;; efficient non-destructive update
+
+(def b {})
+(assoc b :bar 1) ;; => {:bar 1}
+;; efficient non-destructive update</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Cloning</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var a = [...];
+foo(a.slice(0));
+// if foo might mutate a, must clone,
+// however this is only a shallow copy
+// no native implementation of deep copy
+// for primitive collections</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def a [...])
+(foo a)
+;; shallow cloning, deep cloning unnecessary
+;; all core collections are immutable</pre>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="syn-section">
+        <h4>Equality</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// No native implementation
+var a = ["red", "blue", "green"];
+var b = ["red", "blue", "green"];
+
+console.log(a == b); // => false
+// == tests identity
+// must implement your own deep
+// equality test for all types</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def a ["red" "blue" "green"])
+(def b ["red" "blue" "green"])
+(= a b) ;; => true
+</pre>
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="syn-clear">Booleans</h4>
+    <div class="syn-section">
+        <h4>If Statements</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var bugNumbers = [3234,4542,944,124];
+if (bugNumbers.length > 0) {
+  console.log('Not ready for release');
+}</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def bug-numbers [3234 452 944 124])
+(if (pos? (count bug-numbers?))
+  (println "Not ready for release"))</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Handling of empty strings</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var emptyString = "";
+
+if (emptyString) {
+  console.log("You won't see me!");
+} else {
+  console.log("Empty string is treated"+
+              " as false!");
+}</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def empty-string "")
+(if empty-string
+  (println "Empty string is not false!"))</pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="syn-section">
+        <h4>Handling of zero</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+var zero = 0;
+
+if (zero) {
+  console.log("You won't see me!");
+} else {
+  console.log("Zero is treated as false!");
+}</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def zero 0)
+(if zero
+  (println "Zero is not false!"))</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Value and Identity Equality</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// == operator is coercive
+1 == "1" // => true
+// sometimes based on value
+{} == {} // => false</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+;; ClojureScript has no coercive
+;; equality operator, equality
+;; is always based on value
+(= 1 "1") ;; => false
+(= {} {}) ;; => true (see Collections)
+</pre>
             </div>
         </div>
     </div>
@@ -506,18 +789,18 @@ for (var key in data) {
 (def colors (array "red" "orange" "green"))
 
 (doseq [color colors]
-  (.log js/console color))
+  (println color))
 
 (def colorsv ["red" "orange" "green"])
 
 (doseq [color colorsv]
-  (.log js/console color))
+  (println color))
 
 (def data { ... })
 
 (doseq [[k v] data]
-  (.log js/console "key" k)
-  (.log js/console "value" v))
+  (println "key" k)
+  (println "value" v))
 </pre>
             </div>
         </div>
@@ -530,9 +813,10 @@ for (var key in data) {
                             <pre class="brush: js">
 var callbacks = [];
 
-// A closure must be used to preserve the return for
-// each function at each step of the loop.  Otherwise
-// every entry in callbacks will return 2;
+// A closure must be used to preserve the
+// return for each function at each step of
+// the loop.  Otherwise every entry in
+// callbacks will return 2;
 for (var i = 0; i < 2; i++) {
   (function(_i) {
     callbacks.push(function() {
@@ -541,10 +825,12 @@ for (var i = 0; i < 2; i++) {
   })(i);
 }
 
-// Without the internal closure, the result is 2
+// Without the internal closure,
+// the result is 2
 callbacks[0]() // == 0
 
-// ECMAScript 6 can support this with the use of blocks
+// ECMAScript 6 can support this with
+// the use of blocks
 let callbacks = [];
 for (let i = 0; i < 10; i++) {
   let j = i;
@@ -811,13 +1097,13 @@ try {
   (undefined-function)
   (catch Error e
     (if (= (type e) js/ReferenceError)
-      (.log js/console
+      (println
         (str "You called a function"
              "that does not exist"))))
   (finally
-    (.log js/console
-        (str "this runs even if an"
-             "exception is thrown"))))
+    (println
+      (str "this runs even if an"
+           "exception is thrown"))))
 </pre>
             </div>
         </div>
