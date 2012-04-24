@@ -494,6 +494,34 @@ b["bar"] = 1; // destructive update
     </div>
 
     <div class="syn-section">
+        <h4>Callable Collections</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: js">
+// No native implementation
+// array and object access
+// is a static language feature
+</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                            <pre class="brush: clojure">
+(def address {:street "1 Bit Ave."
+              :city "Bit City"
+              :zip 10111011})
+
+(map address [:zip street])
+;; => (10111011 "1 Bit Ave.")
+;; Collections can act as
+;; functions. HashMaps are functions
+;; of their keys.</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
         <h4>Cloning</h4>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
@@ -1320,6 +1348,20 @@ String.prototype.foo = function(...) {
 ;; In addition native JavaScript objects like
 ;; Function, Object, Array, Number, String
 ;; are never actually directly extended
+
+;; For example say you'd like to use RegExps
+;; as functions
+
+(extend-type js/RegExp
+  IFn
+  (-invoke
+   ([this s]
+     (re-matches this s))))
+
+(filter #"foo.*" ["foo" "bar" "foobar"])
+;; => ("foo" "foobar")
+;; This is precisely how callable collections
+;; are implemented.
 </pre>
             </div>
         </div>
