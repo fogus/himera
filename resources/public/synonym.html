@@ -130,12 +130,14 @@ function foo() {
                             <pre class="brush: js">
 // JavaScript "hoists" variables to the top of
 // their scope.  So the following function:
+
 function printName() {
   console.log('Hello, ' + name);
   var name = 'Bob';
 }
 
 // is equivalent to this function:
+
 function printName() {
   var name;
   console.log('Hello, ' + name);
@@ -152,6 +154,7 @@ printName();
                             <pre class="brush: clojure">
 ;; ClojureScript does not hoist variables
 ;; this function will issue a warning
+
 (defn print-name []
   (println "Hello, " name)
   (let [name "Bob"]))</pre>
@@ -189,6 +192,7 @@ var alpha = color[2];
                 <pre class="brush: clojure">
 ;; can always destructure in binding expression
 ;; including, let, function arguments, loops, etc.
+
 (def m {:first "Bob"
         :middle "J"
         :last "Smith"})
@@ -212,13 +216,17 @@ var alpha = color[2];
 // can dynamic bind by putting
 // object in scope chain
 // performance implications
+
 var x = 5;
+
 var obj = {
   x: 10
 };
+
 with(obj) {
   console.log(x); // => 10
 }
+
 console.log(x); // => 5</pre>
             </div>
         </div>
@@ -227,9 +235,12 @@ console.log(x); // => 5</pre>
             <div class="cheat-box">
                 <pre class="brush: clojure">
 ;; efficient dynamic binding
+
 (def ^:dynamic x 5)
+
 (binding [x 10]
   (println x)) ;; => 10
+
 (println x) ;; => 5</pre>
             </div>
         </div>
@@ -241,6 +252,7 @@ console.log(x); // => 5</pre>
             <div class="cheat-box">
                             <pre class="brush: js">
 // In JavaScript locals are mutable
+
 function foo(x) {
   x = "bar";
 }
@@ -252,6 +264,7 @@ function foo(x) {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 ;; this will issue an error
+
 (defn foo [x]
   (set! x "bar"))</pre>
             </div>
@@ -293,7 +306,8 @@ var o = {foo: 1, bar: 2};</pre>
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                             <pre class="brush: clojure">
-(def o (js-obj))</pre>
+(def o (js-obj))
+(def o (js-obj "foo" 1 "bar" 2))</pre>
             </div>
         </div>
     </div>
@@ -312,6 +326,7 @@ var o = {foo: 1, bar: 2};</pre>
             <div class="cheat-box">
                             <pre class="brush: clojure">
 ;; efficient addition at head
+
 (def l (list))
 (def l (list 1 2 3))
 (def l '(1 2 3))
@@ -333,6 +348,7 @@ var o = {foo: 1, bar: 2};</pre>
             <div class="cheat-box">
                 <pre class="brush: clojure">
 ;; efficient addition at the end
+
 (def v (vector))
 (def v [])
 (def v [1 2 3])
@@ -388,6 +404,7 @@ var o = {foo: 1, bar: 2};</pre>
                             <pre class="brush: js">
 // map access is a static
 // language feature
+
 var m = {
   "foo": 1,
   "bar": 2
@@ -398,6 +415,7 @@ m.foo;
 
 // array access is a static
 // language feature
+
 var a = ["red", "blue", "green"];
 a[0];
 </pre>
@@ -408,11 +426,14 @@ a[0];
             <div class="cheat-box">
                             <pre class="brush: clojure">
 // collection access is first class
+
 (def m {:foo 1
         :bar 2})
+
 (get m :foo)
 
 (def v ["red" "blue" "green"])
+
 (nth v 0)</pre>
             </div>
         </div>
@@ -424,6 +445,7 @@ a[0];
             <div class="cheat-box">
                             <pre class="brush: js">
 // Only string keys allowed
+
 var m = {
   "foo": 1,
   "bar": 2
@@ -435,6 +457,7 @@ var m = {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 ;; Arbitrary keys allowed
+
 (def m { [1 2] 3
         #{1 2} 3
         '(1 2) 3 })</pre>
@@ -477,6 +500,7 @@ b["bar"] = 1; // destructive update
                             <pre class="brush: js">
 var a = [...];
 foo(a.slice(0));
+
 // if foo might mutate a, must clone,
 // however this is only a shallow copy
 // no native implementation of deep copy
@@ -489,6 +513,7 @@ foo(a.slice(0));
                             <pre class="brush: clojure">
 (def a [...])
 (foo a)
+
 ;; shallow cloning, deep cloning unnecessary
 ;; all core collections are immutable</pre>
             </div>
@@ -502,10 +527,12 @@ foo(a.slice(0));
             <div class="cheat-box">
                             <pre class="brush: js">
 // No native implementation
+
 var a = ["red", "blue", "green"];
 var b = ["red", "blue", "green"];
 
 console.log(a == b); // => false
+
 // == tests identity
 // must implement your own deep
 // equality test for all types</pre>
@@ -530,6 +557,7 @@ console.log(a == b); // => false
             <div class="cheat-box">
                             <pre class="brush: js">
 var bugNumbers = [3234,4542,944,124];
+
 if (bugNumbers.length > 0) {
   console.log('Not ready for release');
 }</pre>
@@ -540,6 +568,7 @@ if (bugNumbers.length > 0) {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 (def bug-numbers [3234 452 944 124])
+
 (if (pos? (count bug-numbers?))
   (println "Not ready for release"))</pre>
             </div>
@@ -566,6 +595,7 @@ if (emptyString) {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 (def empty-string "")
+
 (if empty-string
   (println "Empty string is not false!"))</pre>
             </div>
@@ -591,6 +621,7 @@ if (zero) {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 (def zero 0)
+
 (if zero
   (println "Zero is not false!"))</pre>
             </div>
@@ -604,6 +635,7 @@ if (zero) {
                             <pre class="brush: js">
 // == operator is coercive
 1 == "1" // => true
+
 // sometimes based on value
 {} == {} // => false</pre>
             </div>
@@ -615,6 +647,7 @@ if (zero) {
 ;; ClojureScript has no coercive
 ;; equality operator, equality
 ;; is always based on value
+
 (= 1 "1") ;; => false
 (= {} {}) ;; => true (see Collections)
 </pre>
@@ -653,6 +686,7 @@ function foo() {
                             <pre class="brush: js">
 // JavaScript is statement oriented
 // explicit return
+
 function foo() {
   ...
   return true;
@@ -666,6 +700,7 @@ function foo() {
                             <pre class="brush: clojure">
 ;; ClojureScript is expression oriented
 ;; no explicit return
+
 (defn foo []
   true)
 </pre>
@@ -760,6 +795,7 @@ foo(1, 2, 3) // => 3
                             <pre class="brush: js">
 // No native implementation. Manipulate arguments
 // object explicitly. Performance implications.
+
 function foo() {
   var args = arguments;
   ...
@@ -773,6 +809,7 @@ function foo() {
                             <pre class="brush: clojure">
 ;; all arguments beyond two will be placed in a
 ;; sequence bound to rest
+
 (defn foo [a b & rest]
   ...)
 </pre>
@@ -787,6 +824,7 @@ function foo() {
                             <pre class="brush: js">
 // No native implementation. Pass objects
 // explicitly.
+
 function foo(o) {
   var bar = o.bar,
       baz = o.baz;
@@ -829,6 +867,7 @@ function foo(o) {
                             <pre class="brush: js">
 // JavaScript does not have uniform iteration
 // over native types.
+
 var colors = ['red', 'orange', 'green'];
 
 for (var i = 0; i < colors.length; i++) {
@@ -851,6 +890,7 @@ for (var key in data) {
 ;; All ClojureScript datastructures support
 ;; uniform iterations. JavaScript natives are
 ;; safely to the same iteration protocol
+
 (def colors (array "red" "orange" "green"))
 
 (doseq [color colors]
@@ -882,6 +922,7 @@ var callbacks = [];
 // return for each function at each step of
 // the loop.  Otherwise every entry in
 // callbacks will return 2;
+
 for (var i = 0; i < 2; i++) {
   (function(_i) {
     callbacks.push(function() {
@@ -892,10 +933,12 @@ for (var i = 0; i < 2; i++) {
 
 // Without the internal closure,
 // the result is 2
+
 callbacks[0]() // == 0
 
 // ECMAScript 6 can support this with
 // the use of blocks
+
 let callbacks = [];
 for (let i = 0; i < 10; i++) {
   let j = i;
@@ -909,6 +952,7 @@ for (let i = 0; i < 10; i++) {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 ;; ClojureScript has proper lexical scope
+
 (def callbacks (atom []))
 
 (dotimes [i 2]
@@ -927,6 +971,7 @@ for (let i = 0; i < 10; i++) {
             <div class="cheat-box">
                             <pre class="brush: js">
 // this will traverse two arrays
+
 var colors = ["red", "green", "blue"];
 console.log((colors.map(function(s) {
   return s[0];
@@ -941,7 +986,9 @@ console.log((colors.map(function(s) {
             <div class="cheat-box">
                             <pre class="brush: clojure">
 ;; lazy, will only traverse once
+
 (def colors ["red" "green" "blue"])
+
 (println
   (map #(str % "foo") (map first colors))
 ;; => ("rfoo" "gfoo" "bfoo")</pre>
@@ -955,9 +1002,11 @@ console.log((colors.map(function(s) {
             <div class="cheat-box">
                             <pre class="brush: js">
 var numbers = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10];
+
 var filtered = numbers.filter(function(n) {
   return n % 5 == 0;
 }); // filters entire array
+
 var firstn = filtered[0];
 // but we only want the first one
 </pre>
@@ -968,9 +1017,12 @@ var firstn = filtered[0];
             <div class="cheat-box">
                             <pre class="brush: clojure">
 (def numbers [0 1 2 3 4 5 6 7 8 9 10])
+
 (def filtered
   (filter #(zero? (rem % 5)) numbers))
+
 (def firstn (first filtered))
+
 ;; lazy filter, values after 5 haven't
 ;; been looked at
 </pre>
@@ -1045,6 +1097,7 @@ typeof name // => "string"
             <div class="cheat-box">
                             <pre class="brush: clojure">
 ;; reflection returns constructors not strings
+
 (def name "Bob")
 (type name) ;; => String
 </pre>
@@ -1311,6 +1364,7 @@ String.prototype.foo = function(...) {
                             <pre class="brush: clojure">
 ;; ClojureScript has compiler macros, no external
 ;; tool required
+
 (defmacro my-code-transformation [...]
   ...)
 
