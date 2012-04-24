@@ -812,10 +812,12 @@ try {
   (catch Error e
     (if (= (type e) js/ReferenceError)
       (.log js/console
-        "You called a function that does not exist"))
+        (str "You called a function"
+             "that does not exist"))))
   (finally
     (.log js/console
-        "this runs even if an exception is thrown"))))
+        (str "this runs even if an"
+             "exception is thrown"))))
 </pre>
             </div>
         </div>
@@ -836,8 +838,8 @@ try {
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                             <pre class="brush: clojure">
-// ClojureScript is dynamic, standard runtime
-// metaprogramming techniques applicable
+;; ClojureScript is dynamic, standard runtime
+;; metaprogramming techniques applicable
 </pre>
             </div>
         </div>
@@ -857,16 +859,16 @@ try {
         <div class="cheat-box-container eight columns">
             <div class="cheat-box">
                             <pre class="brush: clojure">
-// ClojureScript has compiler macros, no external
-// tool required
+;; ClojureScript has compiler macros, no external
+;; tool required
 (defmacro my-code-transformation [...]
   ...)
 
-// Ocaml, Haskell style pattern matching is a
-// library.
+;; Ocaml, Haskell style pattern matching is a
+;; library.
 
-// Prolog style relational programming is a
-// library
+;; Prolog style relational programming is a
+;; library
 </pre>
             </div>
         </div>
