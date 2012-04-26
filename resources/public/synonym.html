@@ -1299,7 +1299,7 @@ try {
                             <pre class="brush: clojure">
 (try
   (undefined-function)
-  (catch Error e
+  (catch js/Error e
     (if (= (type e) js/ReferenceError)
       (println
         (str "You called a function"
