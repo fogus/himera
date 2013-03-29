@@ -271,6 +271,84 @@ function foo(x) {
         </div>
     </div>
 
+    <h3>JavaScript Objects</h3>
+    <div class="syn-section">
+        <h4>Object Creation</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: js">var foo = {bar: "baz"};</pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: clojure">(def foo (js-obj "bar" "baz"))</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Property Access</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: js">
+foo.bar = "baz";
+console.log(foo.bar);
+
+foo["abc"] = 17;
+console.log(foo["abc"]);
+                </pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: clojure">
+(set! (.-bar foo) "baz")
+(.log js/console (.-bar foo))
+
+(aset foo "abc" 17)
+(.log js/console (aget foo "abc"))
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="syn-section">
+        <h4>Interoperability</h4>
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: js">
+// JavaScript Native - calling ClojureScript 
+// functions
+get_names([{name: "John"}, {name: "Jane"}]);
+// Returns: ["John", "Jane"]
+                </pre>
+            </div>
+        </div>
+
+        <div class="cheat-box-container eight columns">
+            <div class="cheat-box">
+                <pre class="brush: clojure">
+;; ClojureScript records aren't exactly 
+;; compatible with pure JavaScript
+;;
+;; Enhance JavaScript objects to ClojureScript 
+;; records for additional capabilities.
+;;
+;; Then do something on each element.
+;;
+;; Then convert back to plain JavaScript.
+
+(defn get-names [people]
+  (let [people (js->clj people)
+        names (map "name" people)]
+    (clj->js names)))
+                </pre>
+            </div>
+        </div>
+    </div>
+
     <h3 class="syn-clear">Primitive Collections</h4>
     <div class="syn-section">
         <h4>Arrays</h4>
