@@ -8,11 +8,11 @@
 
 (defproject himera "0.1.0-SNAPSHOT"
   :description "ClojureScript compiler service."
-  :dependencies [[org.clojure/clojure "1.3.0"]
+  :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring "1.0.2"]
                  [compojure "1.0.1"]
                  [ring-clj-params "0.1.0"]
-                 [org.clojure/clojurescript "0.0-971"]
+                 [org.clojure/clojurescript "0.0-1806"]
                  [com.google.javascript/closure-compiler "r1592"]
                  [org.clojure/google-closure-library "0.0-790"]
                  [org.mozilla/rhino "1.7R3"]]
