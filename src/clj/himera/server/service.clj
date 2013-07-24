@@ -22,8 +22,8 @@
 
 (def generate-js-response (partial generate-response
                                    (fn [data]
-                                     (pr-str {:js (string/trim-newline
-                                                   (:result data))}))))
+                                     (let [code (or (:result data) "'HIMERA ERROR: NOTHING GENERATED'")]
+                                       (pr-str {:js (string/trim-newline code)})))))
 
 (def generate-ast-response (partial generate-response
                                     (fn [data]
