@@ -12,7 +12,7 @@
                  [ring "1.0.2"]
                  [compojure "1.0.1"]
                  [ring-clj-params "0.1.0"]
-                 [org.clojure/clojurescript "0.0-1806"]
+                 [org.clojure/clojurescript "0.0-1847"]
                  [com.google.javascript/closure-compiler "r1592"]
                  [org.clojure/google-closure-library "0.0-790"]
                  [org.mozilla/rhino "1.7R3"]]
@@ -29,5 +29,6 @@
   :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
   :source-paths ["src/clj"]
   :main himera.server.app
-  :hooks [leiningen.js])
+  ;;:hooks [leiningen.js]
+  )
 
