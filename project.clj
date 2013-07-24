@@ -27,7 +27,7 @@
                :optimizations :simple
                :pretty-print true}}
   :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
-  :source-path "src/clj"
+  :source-paths ["src/clj"]
   :main himera.server.app
   :hooks [leiningen.js])
 
