@@ -96,7 +96,6 @@ ul.footer-links {
 }
 
 #console div.jquery-console-inner { 
-  width:580px;
   height:200px; 
   margin: 10px 10px;
   overflow:auto; 
