@@ -27,7 +27,7 @@
    :status 200})
 
 (def compilation (partial build
-                          #(comp/emits (ana/analyze % %2))
+                          #(comp/emit-str (ana/analyze % %2))
                           (setup/load-core-names)))
 
 (def analyze (partial build
@@ -51,7 +51,6 @@
             (if-let [nsym (-> env :ns :uses-macros sym)]
               (.findInternedVar ^clojure.lang.Namespace (find-ns nsym) sym)
               (.findInternedVar ^clojure.lang.Namespace (find-ns 'cljs.core) sym))))]
-    (println [sym mvar])
     (let [sym (symbol (.getName sym))]
       (when (and mvar (or (setup/clojure-macros sym) (setup/cljs-macros sym)))
         @mvar))))
