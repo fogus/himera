@@ -7,7 +7,8 @@
 ; remove this notice, or any other, from this software.
 
 (ns himera.server.cljs
-  (:require [cljs.compiler :as comp])
+  (:require [cljs.compiler :as comp]
+            [cljs.analyzer :as ana])
   (:require [himera.server.setup :as setup])
   (:import [java.io PushbackReader BufferedReader StringReader]
            [clojure.lang ISeq]))
@@ -16,21 +17,21 @@
 
 (defn build [action locals expr opt pp]
   {:result
-   (binding [comp/*cljs-ns* 'cljs.user]
-     (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
+   (binding [ana/*cljs-ns* 'cljs.user]
+     (let [env {:ns (@ana/namespaces ana/*cljs-ns*)
                 :uses #{'cljs.core}
                 :context :expr
                 :locals locals}]
-       (with-redefs [comp/get-expander exp]
+       (with-redefs [ana/get-expander exp]
          (action env expr))))
    :status 200})
 
 (def compilation (partial build
-                          #(comp/emits (comp/analyze % %2))
+                          #(comp/emits (ana/analyze % %2))
                           (setup/load-core-names)))
 
 (def analyze (partial build
-                      #(comp/analyze % %2)
+                      #(ana/analyze % %2)
                       {}))
 
 
