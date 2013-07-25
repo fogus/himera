@@ -30,6 +30,7 @@
   :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
   :source-paths ["src/clj"]
   :main himera.server.app
+  :min-lein-version "2.0.0"
   ;;:hooks [leiningen.js]
   )
 
