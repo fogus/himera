@@ -11,6 +11,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring "1.0.2"]
                  [compojure "1.0.1"]
+                 [domina "1.0.1"]
                  [ring-clj-params "0.1.0"]
                  [org.clojure/clojurescript "0.0-1847"]
                  [com.google.javascript/closure-compiler "r1592"]
