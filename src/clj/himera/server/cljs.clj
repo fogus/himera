@@ -1,4 +1,4 @@
-; Copyright (c) 2012 Fogus and Relevance Inc. All rights reserved.  The
+; Copyright (c) 2012, 2013 Fogus and Relevance Inc. All rights reserved.  The
 ; use and distribution terms for this software are covered by the Eclipse
 ; Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
 ; which can be found in the file COPYING the root of this
