@@ -65,7 +65,7 @@
           (fn []
             (set! js/controller
                   (doto (js/jQuery "#console")
-                    (.console (map->js {:welcomeMessage "Himera REPL v0.1.5"
+                    (.console (map->js {:welcomeMessage "Himera REPL v0.2.5"
                                         :promptLabel "cljs.user> "
                                         :commandValidate on-validate
                                         :commandHandle on-handle
