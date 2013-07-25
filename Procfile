@@ -1,1 +1,1 @@
-web: lein run $PORT
+web: lein run -m himera.server.app $PORT
