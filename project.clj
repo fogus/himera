@@ -21,8 +21,8 @@
               [{:source-paths ["src/cljs"],
                 :compiler
                 {:pretty-print true,
-                 :output-dir "resources/public/",
-                 :output-to "resources/public/repl.js",
+                 :output-dir "resources/public/js/",
+                 :output-to "resources/public/js/repl.js",
                  :optimizations :simple},
                 :jar true}]}  
   :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
