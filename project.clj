@@ -16,17 +16,17 @@
                  [com.google.javascript/closure-compiler "r1592"]
                  [org.clojure/google-closure-library "0.0-790"]
                  [org.mozilla/rhino "1.7R3"]]
-  :plugins [[lein-cljsbuild "0.1.2"]]
+  :plugins [[lein-cljsbuild "0.3.2"]]
   :dev-dependencies [[jline "0.9.94"]
                      [lein-marginalia "0.7.0-SNAPSHOT"]]
-  :cljsbuild  {:builds
-               [{:source-path "src/cljs",
-                 :compiler
-                 {:pretty-print true,
-                  :output-dir "resources/public/",
-                  :output-to "resources/public/repl.js",
-                  :optimizations :simple},
-                 :jar true}]}
+  :cljsbuild {:builds
+              [{:source-paths ["src/cljs"],
+                :compiler
+                {:pretty-print true,
+                 :output-dir "resources/public/",
+                 :output-to "resources/public/repl.js",
+                 :optimizations :simple},
+                :jar true}]}  
   :jvm-opts ["-Djava.security.policy=heroku.policy" "-Xmx80M"]
   :source-paths ["src/clj"]
   :main himera.server.app
