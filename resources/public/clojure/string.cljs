@@ -53,12 +53,12 @@
 (defn upper-case
   "Converts string to all upper-case."
   [s]
-  (. s (toUpperCase)))
+  (.toUpperCase s))
 
 (defn lower-case
   "Converts string to all lower-case."
   [s]
-  (. s (toLowerCase)))
+  (.toLowerCase s))
 
 (defn capitalize
   "Converts first character of the string to upper-case, all other
@@ -133,13 +133,7 @@
 (defn blank?
   "True is s is nil, empty, or contains only whitespace."
   [s]
-  (let [s (str s)]
-    (if (or
-         (not s)
-         (= "" s)
-         (re-matches #"\s+" s))
-      true
-      false)))
+  (gstring/isEmptySafe s))
 
 (defn escape
   "Return a new string, using cmap to escape each character ch

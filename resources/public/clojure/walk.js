@@ -7,13 +7,13 @@ goog.require('cljs.core');
 * Recognizes all Clojure data structures. Consumes seqs as with doall.
 */
 clojure.walk.walk = (function walk(inner,outer,form){
-if(cljs.core.truth_(cljs.core.seq_QMARK_.call(null,form)))
+if(cljs.core.seq_QMARK_.call(null,form))
 {return outer.call(null,cljs.core.doall.call(null,cljs.core.map.call(null,inner,form)));
 } else
-{if(cljs.core.truth_(cljs.core.coll_QMARK_.call(null,form)))
+{if(cljs.core.coll_QMARK_.call(null,form))
 {return outer.call(null,cljs.core.into.call(null,cljs.core.empty.call(null,form),cljs.core.map.call(null,inner,form)));
 } else
-{if(cljs.core.truth_("﷐'else"))
+{if("\uFDD0:else")
 {return outer.call(null,form);
 } else
 {return null;
@@ -39,21 +39,19 @@ return clojure.walk.walk.call(null,cljs.core.partial.call(null,prewalk,f),cljs.c
 * Recursively transforms all map keys from strings to keywords.
 */
 clojure.walk.keywordize_keys = (function keywordize_keys(m){
-var f__4780 = (function (p__4775){
-var vec__4776__4777 = p__4775;
-var k__4778 = cljs.core.nth.call(null,vec__4776__4777,0,null);
-var v__4779 = cljs.core.nth.call(null,vec__4776__4777,1,null);
-
-if(cljs.core.truth_(cljs.core.string_QMARK_.call(null,k__4778)))
-{return cljs.core.Vector.fromArray([cljs.core.keyword.call(null,k__4778),v__4779]);
+var f = (function (p__4518){
+var vec__4519 = p__4518;
+var k = cljs.core.nth.call(null,vec__4519,0,null);
+var v = cljs.core.nth.call(null,vec__4519,1,null);
+if(cljs.core.string_QMARK_.call(null,k))
+{return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null,k),v], true);
 } else
-{return cljs.core.Vector.fromArray([k__4778,v__4779]);
+{return cljs.core.PersistentVector.fromArray([k,v], true);
 }
 });
-
 return clojure.walk.postwalk.call(null,(function (x){
-if(cljs.core.truth_(cljs.core.map_QMARK_.call(null,x)))
-{return cljs.core.into.call(null,cljs.core.ObjMap.fromObject([],{}),cljs.core.map.call(null,f__4780,x));
+if(cljs.core.map_QMARK_.call(null,x))
+{return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,f,x));
 } else
 {return x;
 }
@@ -63,21 +61,19 @@ if(cljs.core.truth_(cljs.core.map_QMARK_.call(null,x)))
 * Recursively transforms all map keys from keywords to strings.
 */
 clojure.walk.stringify_keys = (function stringify_keys(m){
-var f__4786 = (function (p__4781){
-var vec__4782__4783 = p__4781;
-var k__4784 = cljs.core.nth.call(null,vec__4782__4783,0,null);
-var v__4785 = cljs.core.nth.call(null,vec__4782__4783,1,null);
-
-if(cljs.core.truth_(cljs.core.keyword_QMARK_.call(null,k__4784)))
-{return cljs.core.Vector.fromArray([cljs.core.name.call(null,k__4784),v__4785]);
+var f = (function (p__4522){
+var vec__4523 = p__4522;
+var k = cljs.core.nth.call(null,vec__4523,0,null);
+var v = cljs.core.nth.call(null,vec__4523,1,null);
+if(cljs.core.keyword_QMARK_.call(null,k))
+{return cljs.core.PersistentVector.fromArray([cljs.core.name.call(null,k),v], true);
 } else
-{return cljs.core.Vector.fromArray([k__4784,v__4785]);
+{return cljs.core.PersistentVector.fromArray([k,v], true);
 }
 });
-
 return clojure.walk.postwalk.call(null,(function (x){
-if(cljs.core.truth_(cljs.core.map_QMARK_.call(null,x)))
-{return cljs.core.into.call(null,cljs.core.ObjMap.fromObject([],{}),cljs.core.map.call(null,f__4786,x));
+if(cljs.core.map_QMARK_.call(null,x))
+{return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,f,x));
 } else
 {return x;
 }
@@ -90,7 +86,7 @@ if(cljs.core.truth_(cljs.core.map_QMARK_.call(null,x)))
 */
 clojure.walk.prewalk_replace = (function prewalk_replace(smap,form){
 return clojure.walk.prewalk.call(null,(function (x){
-if(cljs.core.truth_(cljs.core.contains_QMARK_.call(null,smap,x)))
+if(cljs.core.contains_QMARK_.call(null,smap,x))
 {return smap.call(null,x);
 } else
 {return x;
@@ -104,7 +100,7 @@ if(cljs.core.truth_(cljs.core.contains_QMARK_.call(null,smap,x)))
 */
 clojure.walk.postwalk_replace = (function postwalk_replace(smap,form){
 return clojure.walk.postwalk.call(null,(function (x){
-if(cljs.core.truth_(cljs.core.contains_QMARK_.call(null,smap,x)))
+if(cljs.core.contains_QMARK_.call(null,smap,x))
 {return smap.call(null,x);
 } else
 {return x;
