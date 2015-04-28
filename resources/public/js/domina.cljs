@@ -10,6 +10,7 @@
             [cljs.core :as core]
             [clojure.string :as cstring]
             [domina.support :as support])
+  (:refer-clojure :exclude [clone])
   (:require-macros [domina.macros :as dm]))
 
 ;;;;;;;;;;;;;;;;;;; Parse HTML to DOM ;;
@@ -122,12 +123,11 @@
   (dom/getElement (core/name id)))
 
 (declare normalize-seq)
+
 (defn by-class
   "Returns content containing nodes which have the specified CSS class."
   [class-name]
-  (reify DomContent
-         (nodes [_] (normalize-seq (dom/getElementsByClass (core/name class-name))))
-         (single-node [_] (normalize-seq (dom/getElementByClass (core/name class-name))))))
+  (normalize-seq (dom/getElementsByClass (core/name class-name))))
 
 (defn children
   "Gets all the child nodes of the elements in a content. Same as (xpath content '*') but more efficient."
@@ -257,10 +257,13 @@
   "Returns a map of the CSS styles/values. Assumes content will be a single node. Style names are returned as keywords."
   [content]
   (let [style (attr content "style")]
-    (if (string? style)
-      (parse-style-attributes style)
-      (if (. style -cssText)
-        (parse-style-attributes (. style -cssText))))))
+    (cond (string? style)
+            (parse-style-attributes style)
+          (nil? style)
+            {}
+          (. style -cssText)
+            (parse-style-attributes (. style -cssText))
+          :else {})))
 
 (defn attrs
   "Returns a map of the HTML attributes/values. Assumes content will be a single node. Attribute names are returned as keywords."
@@ -284,7 +287,7 @@
   content)
 
 (defn set-attrs!
-  "Sets the specified CSS styles fpr each node in the content, given a map of names and values. Style names may be keywords or strings."
+  "Sets the specified attributes for each node in the content, given a map of names and values. Names may be a string or keyword. Values will be cast to a string, multiple values wil be concatenated."
   [content attrs]
   (doseq [[name value] attrs]
     (set-attr! content name value))
@@ -307,6 +310,13 @@
   [content class]
   (doseq [node (nodes content)]
     (classes/remove node class))
+  content)
+
+(defn toggle-class!
+  "Toggles the specified CSS class from each node in the content."
+  [content class]
+  (doseq [node (nodes content)]
+    (classes/toggle node class))
   content)
 
 (defn classes
@@ -376,7 +386,6 @@
       (let [value (cstring/replace html-string re-xhtml-tag "<$1></$2>")]
         (try
           (doseq [node (nodes content)]
-            (events/removeAll node)
             (set! (. node -innerHTML) value))
           (catch js/Error e
             (replace-children! content value))))
@@ -462,8 +471,9 @@
 
 (defn- array-like?
   [obj]
-  (and obj
-       (.-length obj)))
+  (and obj ;; is not nil
+       (not (.-nodeName obj)) ;; is not an element (i.e, <select>)
+       (.-length obj))) ;; has a length
 
 (defn normalize-seq
   "Some versions of IE have things that are like arrays in that they
