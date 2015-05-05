@@ -8,11 +8,11 @@
 
 (ns himera.server.service
   (:use compojure.core)
-  (:use ring.middleware.clj-params)
   (:require [clojure.string :as string])
   (:require [himera.server.cljs :as cljs]
             [compojure.route :as route]
-            [ring.util.response :as resp]))
+            [ring.util.response :as resp]
+            [clojure.tools.reader :as reader]))
 
 (defn generate-response [transformer data & [status]]
   (let [ret-val (transformer data)]
@@ -42,6 +42,24 @@
         (generate-ast-response (cljs/analyze expr :simple true)))
 
   (route/resources "/"))
+
+(defn- clj-request?
+  [req]
+  (if-let [^String type (:content-type req)]
+    (not (empty? (re-find #"^application/(vnd.+)?clojure" type)))))
+
+(defn wrap-clj-params
+  [handler]
+  (fn [req]
+    (if-let [body (and (clj-request? req) (:body req))]
+      (let [bstr (slurp body)
+            clj-params (binding [*read-eval* false]
+                         (reader/read-string {:read-cond :allow :features #{:cljs}} bstr))
+            req* (assoc req
+                   :clj-params clj-params
+                   :params (merge (:params req) clj-params))]
+        (handler req*))
+      (handler req))))
 
 (def app
   (-> handler

@@ -1,132 +1,131 @@
+// Compiled by ClojureScript 0.0-3211 {}
 goog.provide('himera.client.repl');
 goog.require('cljs.core');
+goog.require('clojure.set');
 goog.require('clojure.zip');
 goog.require('clojure.walk');
-goog.require('clojure.set');
 goog.require('clojure.string');
 goog.require('cljs.reader');
-himera.client.repl.map__GT_js = (function map__GT_js(m){
-var out = {};
-var seq__3520_3526 = cljs.core.seq.call(null,m);
-var chunk__3521_3527 = null;
-var count__3522_3528 = 0;
-var i__3523_3529 = 0;
+himera.client.repl.map__GT_js = (function himera$client$repl$map__GT_js(m){
+var out = (function (){var obj6438 = {};
+return obj6438;
+})();
+var seq__6439_6445 = cljs.core.seq.call(null,m);
+var chunk__6440_6446 = null;
+var count__6441_6447 = (0);
+var i__6442_6448 = (0);
 while(true){
-if((i__3523_3529 < count__3522_3528))
-{var vec__3524_3530 = cljs.core._nth.call(null,chunk__3521_3527,i__3523_3529);
-var k_3531 = cljs.core.nth.call(null,vec__3524_3530,0,null);
-var v_3532 = cljs.core.nth.call(null,vec__3524_3530,1,null);
-(out[cljs.core.name.call(null,k_3531)] = v_3532);
-{
-var G__3533 = seq__3520_3526;
-var G__3534 = chunk__3521_3527;
-var G__3535 = count__3522_3528;
-var G__3536 = (i__3523_3529 + 1);
-seq__3520_3526 = G__3533;
-chunk__3521_3527 = G__3534;
-count__3522_3528 = G__3535;
-i__3523_3529 = G__3536;
+if((i__6442_6448 < count__6441_6447)){
+var vec__6443_6449 = cljs.core._nth.call(null,chunk__6440_6446,i__6442_6448);
+var k_6450 = cljs.core.nth.call(null,vec__6443_6449,(0),null);
+var v_6451 = cljs.core.nth.call(null,vec__6443_6449,(1),null);
+(out[cljs.core.name.call(null,k_6450)] = v_6451);
+
+var G__6452 = seq__6439_6445;
+var G__6453 = chunk__6440_6446;
+var G__6454 = count__6441_6447;
+var G__6455 = (i__6442_6448 + (1));
+seq__6439_6445 = G__6452;
+chunk__6440_6446 = G__6453;
+count__6441_6447 = G__6454;
+i__6442_6448 = G__6455;
+continue;
+} else {
+var temp__4404__auto___6456 = cljs.core.seq.call(null,seq__6439_6445);
+if(temp__4404__auto___6456){
+var seq__6439_6457__$1 = temp__4404__auto___6456;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__6439_6457__$1)){
+var c__5056__auto___6458 = cljs.core.chunk_first.call(null,seq__6439_6457__$1);
+var G__6459 = cljs.core.chunk_rest.call(null,seq__6439_6457__$1);
+var G__6460 = c__5056__auto___6458;
+var G__6461 = cljs.core.count.call(null,c__5056__auto___6458);
+var G__6462 = (0);
+seq__6439_6445 = G__6459;
+chunk__6440_6446 = G__6460;
+count__6441_6447 = G__6461;
+i__6442_6448 = G__6462;
+continue;
+} else {
+var vec__6444_6463 = cljs.core.first.call(null,seq__6439_6457__$1);
+var k_6464 = cljs.core.nth.call(null,vec__6444_6463,(0),null);
+var v_6465 = cljs.core.nth.call(null,vec__6444_6463,(1),null);
+(out[cljs.core.name.call(null,k_6464)] = v_6465);
+
+var G__6466 = cljs.core.next.call(null,seq__6439_6457__$1);
+var G__6467 = null;
+var G__6468 = (0);
+var G__6469 = (0);
+seq__6439_6445 = G__6466;
+chunk__6440_6446 = G__6467;
+count__6441_6447 = G__6468;
+i__6442_6448 = G__6469;
 continue;
 }
-} else
-{var temp__4092__auto___3537 = cljs.core.seq.call(null,seq__3520_3526);
-if(temp__4092__auto___3537)
-{var seq__3520_3538__$1 = temp__4092__auto___3537;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__3520_3538__$1))
-{var c__3039__auto___3539 = cljs.core.chunk_first.call(null,seq__3520_3538__$1);
-{
-var G__3540 = cljs.core.chunk_rest.call(null,seq__3520_3538__$1);
-var G__3541 = c__3039__auto___3539;
-var G__3542 = cljs.core.count.call(null,c__3039__auto___3539);
-var G__3543 = 0;
-seq__3520_3526 = G__3540;
-chunk__3521_3527 = G__3541;
-count__3522_3528 = G__3542;
-i__3523_3529 = G__3543;
-continue;
+} else {
 }
-} else
-{var vec__3525_3544 = cljs.core.first.call(null,seq__3520_3538__$1);
-var k_3545 = cljs.core.nth.call(null,vec__3525_3544,0,null);
-var v_3546 = cljs.core.nth.call(null,vec__3525_3544,1,null);
-(out[cljs.core.name.call(null,k_3545)] = v_3546);
-{
-var G__3547 = cljs.core.next.call(null,seq__3520_3538__$1);
-var G__3548 = null;
-var G__3549 = 0;
-var G__3550 = 0;
-seq__3520_3526 = G__3547;
-chunk__3521_3527 = G__3548;
-count__3522_3528 = G__3549;
-i__3523_3529 = G__3550;
-continue;
-}
-}
-} else
-{}
 }
 break;
 }
+
 return out;
 });
-himera.client.repl.go_compile = (function go_compile(code){
+himera.client.repl.go_compile = (function himera$client$repl$go_compile(code){
 var data = cljs.core.atom.call(null,null);
-var params = himera.client.repl.map__GT_js.call(null,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:url","/compile","\uFDD0:data",[cljs.core.str("{:expr "),cljs.core.str(code),cljs.core.str("}")].join(''),"\uFDD0:contentType","application/clojure; charset=utf-8","\uFDD0:async",false,"\uFDD0:type","POST","\uFDD0:dataType","text","\uFDD0:success",((function (data){
-return (function (p1__3551_SHARP_){
-return cljs.core.reset_BANG_.call(null,data,cljs.reader.read_string.call(null,p1__3551_SHARP_));
+var params = himera.client.repl.map__GT_js.call(null,new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"url","url",276297046),"/compile",new cljs.core.Keyword(null,"data","data",-232669377),[cljs.core.str("{:expr "),cljs.core.str(code),cljs.core.str("}")].join(''),new cljs.core.Keyword(null,"contentType","contentType",-1462509576),"application/clojure; charset=utf-8",new cljs.core.Keyword(null,"async","async",1050769601),false,new cljs.core.Keyword(null,"type","type",1174270348),"POST",new cljs.core.Keyword(null,"dataType","dataType",1069893619),"text",new cljs.core.Keyword(null,"success","success",1890645906),((function (data){
+return (function (p1__6470_SHARP_){
+return cljs.core.reset_BANG_.call(null,data,cljs.reader.read_string.call(null,p1__6470_SHARP_));
 });})(data))
-], true));
+], null));
 jQuery.ajax(params);
+
 return cljs.core.deref.call(null,data);
 });
-himera.client.repl.on_validate = (function on_validate(input){
+himera.client.repl.on_validate = (function himera$client$repl$on_validate(input){
 return !(cljs.core.empty_QMARK_.call(null,input));
 });
-himera.client.repl.build_msg = (function build_msg(title,msg,klass){
-return [himera.client.repl.map__GT_js.call(null,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:msg",[cljs.core.str(title),cljs.core.str(msg)].join(''),"\uFDD0:className",klass], true))];
+himera.client.repl.build_msg = (function himera$client$repl$build_msg(title,msg,klass){
+return [himera.client.repl.map__GT_js.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"msg","msg",-1386103444),[cljs.core.str(title),cljs.core.str(msg)].join(''),new cljs.core.Keyword(null,"className","className",-1983287057),klass], null))];
 });
-himera.client.repl.starts_with_QMARK_ = (function starts_with_QMARK_(o,s){
-return cljs.core._EQ_.call(null,clojure.string.trim.call(null,s).slice(0,o.length),o);
+himera.client.repl.starts_with_QMARK_ = (function himera$client$repl$starts_with_QMARK_(o,s){
+return cljs.core._EQ_.call(null,clojure.string.trim.call(null,s).slice((0),o.length),o);
 });
-himera.client.repl.is_comment_QMARK_ = (function is_comment_QMARK_(p1__3552_SHARP_){
-return himera.client.repl.starts_with_QMARK_.call(null,";",p1__3552_SHARP_);
+himera.client.repl.is_comment_QMARK_ = (function himera$client$repl$is_comment_QMARK_(p1__6471_SHARP_){
+return himera.client.repl.starts_with_QMARK_.call(null,";",p1__6471_SHARP_);
 });
-himera.client.repl.on_handle = (function on_handle(line,report){
-if(cljs.core.truth_(himera.client.repl.is_comment_QMARK_.call(null,line)))
-{return himera.client.repl.build_msg.call(null,"","","jquery-console-message-value");
-} else
-{var input = jQuery.trim(line);
+himera.client.repl.on_handle = (function himera$client$repl$on_handle(line,report){
+if(cljs.core.truth_(himera.client.repl.is_comment_QMARK_.call(null,line))){
+return himera.client.repl.build_msg.call(null,"","","jquery-console-message-value");
+} else {
+var input = jQuery.trim(line);
 var compiled = himera.client.repl.go_compile.call(null,input);
-var temp__4090__auto__ = (function (){var and__3941__auto__ = compiled;
-if(cljs.core.truth_(and__3941__auto__))
-{return (new cljs.core.Keyword("\uFDD0:error")).call(null,compiled);
-} else
-{return and__3941__auto__;
+var temp__4402__auto__ = (function (){var and__4259__auto__ = compiled;
+if(cljs.core.truth_(and__4259__auto__)){
+return new cljs.core.Keyword(null,"error","error",-978969032).cljs$core$IFn$_invoke$arity$1(compiled);
+} else {
+return and__4259__auto__;
 }
 })();
-if(cljs.core.truth_(temp__4090__auto__))
-{var err = temp__4090__auto__;
+if(cljs.core.truth_(temp__4402__auto__)){
+var err = temp__4402__auto__;
 return himera.client.repl.build_msg.call(null,"Compilation error: ",err,"jquery-console-message-error");
-} else
-{try{return himera.client.repl.build_msg.call(null,"",cljs.core.pr_str.call(null,eval((new cljs.core.Keyword("\uFDD0:js")).call(null,compiled))),"jquery-console-message-value");
-}catch (e3554){if((e3554 instanceof Error))
-{var e = e3554;
+} else {
+try{return himera.client.repl.build_msg.call(null,"",cljs.core.pr_str.call(null,eval(new cljs.core.Keyword(null,"js","js",1768080579).cljs$core$IFn$_invoke$arity$1(compiled))),"jquery-console-message-value");
+}catch (e6473){if((e6473 instanceof Error)){
+var e = e6473;
 return himera.client.repl.build_msg.call(null,"Compilation error: ",e,"jquery-console-message-error");
-} else
-{if("\uFDD0:else")
-{throw e3554;
-} else
-{return null;
-}
+} else {
+throw e6473;
+
 }
 }}
 }
 });
-himera.client.repl.go = (function go(){
+himera.client.repl.go = (function himera$client$repl$go(){
 return jQuery(document).ready((function (){
-return controller = (function (){var G__3556 = jQuery("#console");
-G__3556.console(himera.client.repl.map__GT_js.call(null,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:welcomeMessage","Himera REPL v0.2.6","\uFDD0:promptLabel","cljs.user> ","\uFDD0:commandValidate",himera.client.repl.on_validate,"\uFDD0:commandHandle",himera.client.repl.on_handle,"\uFDD0:autofocus",true,"\uFDD0:animateScroll",true,"\uFDD0:promptHistory",true], true)));
-return G__3556;
+return controller = (function (){var G__6475 = jQuery("#console");
+G__6475.console(himera.client.repl.map__GT_js.call(null,new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"welcomeMessage","welcomeMessage",477308394),"Himera REPL v0.2.6",new cljs.core.Keyword(null,"promptLabel","promptLabel",-1453236022),"cljs.user> ",new cljs.core.Keyword(null,"commandValidate","commandValidate",358275692),himera.client.repl.on_validate,new cljs.core.Keyword(null,"commandHandle","commandHandle",949526675),himera.client.repl.on_handle,new cljs.core.Keyword(null,"autofocus","autofocus",-712814732),true,new cljs.core.Keyword(null,"animateScroll","animateScroll",-1082623181),true,new cljs.core.Keyword(null,"promptHistory","promptHistory",1167665660),true], null)));
+
+return G__6475;
 })();
 }));
 });

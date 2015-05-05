@@ -8,17 +8,21 @@
 
 (ns clojure.string
   (:refer-clojure :exclude [replace reverse])
-  (:require [goog.string :as gstring]
-            [goog.string.StringBuffer :as gstringbuf]))
+  (:require [goog.string :as gstring])
+  (:import [goog.string StringBuffer]))
 
 (defn- seq-reverse
   [coll]
   (reduce conj () coll))
 
+(def ^:private re-surrogate-pair
+  (js/RegExp. "([\\uD800-\\uDBFF])([\\uDC00-\\uDFFF])" "g"))
+
 (defn reverse
   "Returns s with its characters reversed."
   [s]
-  (.. s (split "") (reverse) (join "")))
+  (-> (.replace s re-surrogate-pair "$2$1")
+      (.. (split "") (reverse) (join ""))))
 
 (defn replace
   "Replaces all instance of match with replacement in s.
@@ -29,7 +33,7 @@
   [s match replacement]
   (cond (string? match)
         (.replace s (js/RegExp. (gstring/regExpEscape match) "g") replacement)
-        (.hasOwnProperty match "source")
+        (instance? js/RegExp match)
         (.replace s (js/RegExp. (.-source match) "g") replacement)
         :else (throw (str "Invalid match arg: " match))))
 
@@ -44,11 +48,22 @@
 
 (defn join
   "Returns a string of all elements in coll, as returned by (seq coll),
-   separated by an optional separator."
+  separated by an optional separator."
   ([coll]
-     (apply str coll))
+   (loop [sb (StringBuffer.) coll (seq coll)]
+     (if coll
+       (recur (. sb (append (str (first coll)))) (next coll))
+       (.toString sb))))
   ([separator coll]
-     (apply str (interpose separator coll))))
+   (loop [sb (StringBuffer.) coll (seq coll)]
+     (if coll
+       (do
+         (. sb (append (str (first coll))))
+         (let [coll (next coll)]
+           (when-not (nil? coll)
+             (. sb (append separator)))
+           (recur sb coll)))
+       (.toString sb)))))
 
 (defn upper-case
   "Converts string to all upper-case."
@@ -78,25 +93,51 @@
 ;; For consistency, the three arg version has been implemented to
 ;; mimic Java's behavior.
 
+(defn- pop-last-while-empty
+  [v]
+  (loop [v v]
+    (if (= "" (peek v))
+      (recur (pop v))
+      v)))
+
+(defn- discard-trailing-if-needed
+  [limit v]
+  (if (= 0 limit)
+    (pop-last-while-empty v)
+    v))
+
+(defn- split-with-empty-regex
+  [s limit]
+  (if (or (<= limit 0) (>= limit (+ 2 (count s))))
+    (conj (vec (cons "" (map str (seq s)))) "")
+    (condp = limit
+      1 (vector s)
+      2 (vector "" s)
+      (let [c (- limit 2)]
+        (conj (vec (cons "" (subvec (vec (map str (seq s))) 0 c))) (subs s c))))))
+
 (defn split
   "Splits string on a regular expression. Optional argument limit is
   the maximum number of splits. Not lazy. Returns vector of the splits."
   ([s re]
-     (vec (.split (str s) re)))
-  ([s re limit]
-     (if (< limit 1)
-       (vec (.split (str s) re))
-       (loop [s s
-              limit limit
-              parts []]
-         (if (= limit 1)
-           (conj parts s)
-           (if-let [m (re-find re s)]
-             (let [index (.indexOf s m)]
-               (recur (.substring s (+ index (count m)))
-                      (dec limit)
-                      (conj parts (.substring s 0 index))))
-             (conj parts s)))))))
+     (split s re 0))
+    ([s re limit]
+     (discard-trailing-if-needed limit
+       (if (= (str re) "/(?:)/")
+         (split-with-empty-regex s limit)
+         (if (< limit 1)
+           (vec (.split (str s) re))
+           (loop [s s
+                  limit limit
+                  parts []]
+             (if (= limit 1)
+               (conj parts s)
+               (if-let [m (re-find re s)]
+                 (let [index (.indexOf s m)]
+                   (recur (.substring s (+ index (count m)))
+                          (dec limit)
+                          (conj parts (.substring s 0 index))))
+                 (conj parts s)))))))))
 
 (defn split-lines
   "Splits s on \n or \r\n."
@@ -142,7 +183,7 @@
    If (cmap ch) is nil, append ch to the new string.
    If (cmap ch) is non-nil, append (str (cmap ch)) instead."
   [s cmap]
-  (let [buffer (gstring/StringBuffer.)
+  (let [buffer (StringBuffer.)
         length (.-length s)]
     (loop [index 0]
       (if (= length index)
