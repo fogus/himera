@@ -91,6 +91,6 @@ Thanks to Tim McCormack, Paul Michael Bauer, and Anthony Grimes for the hard wor
 
 ## License
 
-Copyright (C) 2012, 2013 Fogus and Relevance, Inc.
+Copyright (C) 2012-2015 Fogus and Cognitect, Inc.
 
 Distributed under the Eclipse Public License, the same as Clojure.
