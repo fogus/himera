@@ -8,7 +8,7 @@
 
 (defproject himera "0.1.0-SNAPSHOT"
   :description "ClojureScript compiler service."
-  :dependencies [[org.clojure/clojure "1.7.0-beta1"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/tools.reader "0.9.1"]
                  [ring "1.3.2"]
                  [compojure "1.3.3"]
